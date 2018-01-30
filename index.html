@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link rel="stylesheet" href="styles.css">
+  </head>
+  
+  <body>
+    <div class="headSite">
+      <div class="headSite-item">
+        <div class="headSite-item one">
+          Чтобы воспользовать сервисом необходимо зарегистрироваться.
+          <br>Если вы уже зарегистрированы войдите под своей учетной записью.
+        </div>
+        <div class="headSite-item two">
+          <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Регистрация</button>
+
+			<div id="id01" class="modal" style="color: #000;">
+			  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">&times;</span>
+			  <form class="modal-content animate" action="/action_page.php">
+				<div class="container">
+				  <h1>Регистрация</h1>
+				  <p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
+				  <hr>
+				  <label><b>Email</b></label>
+				  <input type="text" placeholder="Введите Email" name="email" required>
+
+				  <label><b>Пароль</b></label>
+				  <input type="password" placeholder="Введите пароль" name="psw" required>
+
+				  <label><b>Повторите пароль</b></label>
+				  <input type="password" placeholder="Повторите пароль" name="psw-repeat" required>
+				  
+				  <label>
+					<input type="checkbox" checked="checked"> Запомнить меня
+				  </label>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+				  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtnr">Отмена</button>
+				  <button type="submit" class="signupbtn">Регистрация</button>
+				</div>
+			  </form>
+			</div>
+        </div>
+		
+        <div class="headSite-item three">
+          <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Войти</button>
+
+			<div id="id02" class="modal" style="color: #000;">
+			  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
+			  <form class="modal-content animate" action="/action_page.php">
+				<div class="imgcontainer">
+				  <img src="img_avatar.png" alt="Avatar" class="avatar">
+				</div>
+
+				<div class="container">
+				  <label><b>Имя пользователя</b></label>
+				  <input type="text" placeholder="Введите имя" name="uname" required>
+
+				  <label><b>Пароль</b></label>
+				  <input type="password" placeholder="Введите пароль" name="psw" required>
+					
+				  <button type="submit">Войти</button>
+				  <label>
+					<input type="checkbox" checked="checked"> Запомнить меня
+				  </label>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+				  <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Отмена</button>
+				  <span class="psw"><a href="#">Забыли пароль?</a></span>
+				</div>
+			  </form>
+			</div>
+		  
+        </div>
+      </div>
+    </div>
+    <div class="flex-conteiner">
+      <div class="flexitem1">
+        <table id="calendar2">
+          <thead>
+            <tr><td>‹<td colspan="5"><td>›
+            <tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
+          <tbody>
+        </table>
+      </div>
+      
+      <div class="flexitem2">
+        <div class="taskArea">
+          Тут таблица с задачами
+        </div>
+        <div class="buttons">
+          <button class="flex-button">Кнопка с текстом</button>
+          <button class="flex-button">Кнопка с текстом</button>
+          <button class="flex-button">Кнопка с текстом</button>
+        </div>
+      </div>
+    </div>
+    
+
+
+    <script>
+	// Get the modal
+	var signup = document.getElementById('id01');
+	var login = document.getElementById('id02');
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == signup) {
+			signup.style.display = "none";
+		} else if (event.target == login){
+			login.style.display = "none";
+		}
+	}
+    function Calendar2(id, year, month) {
+    var Dlast = new Date(year,month+1,0).getDate(),
+        D = new Date(year,month,Dlast),
+        DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
+        DNfirst = new Date(D.getFullYear(),D.getMonth(),1).getDay(),
+        calendar = '<tr>',
+        month=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+    if (DNfirst != 0) {
+      for(var  i = 1; i < DNfirst; i++) calendar += '<td>';
+    }else{
+      for(var  i = 0; i < 6; i++) calendar += '<td>';
+    }
+    for(var  i = 1; i <= Dlast; i++) {
+      if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth()) {
+        calendar += '<td class="today">' + i;
+      }else{
+        calendar += '<td>' + i;
+      }
+      if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0) {
+        calendar += '<tr>';
+      }
+    }
+    for(var  i = DNlast; i < 7; i++) calendar += '<td>&nbsp;';
+    document.querySelector('#'+id+' tbody').innerHTML = calendar;
+    document.querySelector('#'+id+' thead td:nth-child(2)').innerHTML = month[D.getMonth()] +' '+ D.getFullYear();
+    document.querySelector('#'+id+' thead td:nth-child(2)').dataset.month = D.getMonth();
+    document.querySelector('#'+id+' thead td:nth-child(2)').dataset.year = D.getFullYear();
+    if (document.querySelectorAll('#'+id+' tbody tr').length < 6) {  // чтобы при перелистывании месяцев не "подпрыгивала" вся страница, добавляется ряд пустых клеток. Итог: всегда 6 строк для цифр
+        document.querySelector('#'+id+' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
+    }
+    }
+    Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
+    // переключатель минус месяц
+    document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
+      Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);
+    }
+    // переключатель плюс месяц
+    document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
+      Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
+    }
+    </script>
+  </body>
+</html>
