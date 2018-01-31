@@ -24,6 +24,10 @@
 #calendar2 tbody td {
     color: rgb(44, 86, 122);
 }
+.onClickCell{
+    border: 2px outside blue;
+}
+
 #calendar2 tbody td:nth-child(n+6), #calendar2 .holiday {
     color: rgb(231, 140, 92);
 }
@@ -31,6 +35,8 @@
     background: rgb(220, 0, 0);
     color: #fff;
 }
+
+
 .headSite{
     width: 100%;
     display: flex;
@@ -46,6 +52,10 @@
     flex-direction: row;
     align-items: center; /* Выравнивание текста по вертикали */
     justify-content: center; /* Выравнивание текста по горизонтали */
+}
+
+.click {
+    border: 2px solid Black;
 }
 .one {
     width: 60%;
