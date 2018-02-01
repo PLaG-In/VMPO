@@ -91,20 +91,22 @@
 .flexitem2{
     width: 50%;
     height: 80vh;
-    padding: 2%;
+    padding: 1%;
     display: flex;
     flex-direction: column;
 }
 .taskArea{
     width: 100%;
-    height: 80%;
+    height: 70%;
     background: #BB844C;
+    margin: 1%;
 }
 .buttons{
     width: 100%;
     height: 20%;
     background: #508694;
     display: flex;    
+    margin: 1%;
     align-items: center; /* Выравнивание текста по вертикали */
     justify-content: center;       
 }
@@ -112,6 +114,7 @@
 .flex-button{
     width: 33%;
     height: 50%;
+    padding: 1%;
 }
 
 input[type=text], input[type=password] {
@@ -128,10 +131,46 @@ button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 1%;
     border: none;
     cursor: pointer;
     width: 100%;
+}
+
+.timer{
+    width: 100%;
+    margin: 1%;
+    height: 10%;
+    background: #508694;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.time{
+    width: 20%;
+    height: 100%;
+    background: #4CAF50;   
+    align-items: center; /* Выравнивание текста по вертикали */
+    justify-content: center;  
+    display: flex;  
+}
+p{
+    margin: 0;
+    padding: 0;
+}
+
+.timer-button{
+    height: 80%;
+    width: 40%;
+}
+
+.timerButtonBlock{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Выравнивание текста по вертикали */
+    justify-content: center;     
 }
 
 button:hover {
