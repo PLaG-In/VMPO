@@ -91,7 +91,7 @@
 .flexitem2{
     width: 50%;
     height: 80vh;
-    padding: 1%;
+    padding: 0 1% 0 1%;
     display: flex;
     flex-direction: column;
 }
