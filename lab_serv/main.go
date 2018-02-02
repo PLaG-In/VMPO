@@ -13,8 +13,8 @@ func PrintToScreen(w http.ResponseWriter, js []byte) {
 func main() {
 	http.HandleFunc("/auth", auth)
 	http.HandleFunc("/reg", reg)
-	/*http.HandleFunc("/get_list_data", get_list_data)
-	http.HandleFunc("/get_task_des", get_task_des)
+	http.HandleFunc("/get_list_data", get_list_data)
+	/*http.HandleFunc("/get_task_des", get_task_des)
 	http.HandleFunc("/add_task", add_task)
 	http.HandleFunc("/remove_task", remove_task)
 	http.HandleFunc("/remove_task_all", remove_task_all)
