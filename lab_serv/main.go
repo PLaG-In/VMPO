@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -11,6 +12,7 @@ func PrintToScreen(w http.ResponseWriter, js []byte) {
 }
 
 func main() {
+	http.HandleFunc("/", checkState)
 	http.HandleFunc("/auth", auth)
 	http.HandleFunc("/reg", reg)
 	http.HandleFunc("/get_list_data", get_list_data)
@@ -32,6 +34,19 @@ func checkErr(err error) {
 		fmt.Println(err.Error())
 		//log.Fatal(err.Error())
 	}
+}
+
+func checkState(w http.ResponseWriter, r *http.Request) {
+	//Проверка состояния сервера
+	authAndRegOK := AuthAndRegOK{200, "", 0}
+	js, err := json.Marshal(authAndRegOK)
+	if err != nil {
+		authAndRegFailed := AuthAndRegFAIL{500, "Серверная ошибка"}
+		js, err := json.Marshal(authAndRegFailed)
+		checkErr(err)
+		PrintToScreen(w, js)
+	}
+	PrintToScreen(w, js)
 }
 
 func testing(w http.ResponseWriter, r *http.Request) {

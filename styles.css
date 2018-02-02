@@ -131,7 +131,6 @@ button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
-    margin: 1%;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -165,6 +164,12 @@ p{
     width: 40%;
 }
 
+.stop-button{
+    background-color: #f44336;
+	height: 80%;
+    width: 40%;
+}
+
 .timerButtonBlock{
     width: 80%;
     height: 100%;
@@ -195,18 +200,6 @@ button:hover {
  .signupbtn {
   float: right;
   width: 50%;
-}
-
-/* Центруем картинку и кнопку отмены */
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-    position: relative;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
 }
 
 .container {

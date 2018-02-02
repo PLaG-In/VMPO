@@ -49,24 +49,19 @@
 
 			<div id="id02" class="modal" style="color: #000;">
 			  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
-			  <form class="modal-content animate" action="/action_page.php">
-				<div class="imgcontainer">
-				  <img src="img_avatar.png" alt="Avatar" class="avatar">
-				</div>
-
+			  <form class="modal-content animate" method="get" onsubmit="loadPhones()">
 				<div class="container">
 				  <label><b>Имя пользователя</b></label>
-				  <input type="text" placeholder="Введите имя" name="uname" required>
+				  <input type="text" placeholder="Введите имя" name="login" required>
 
 				  <label><b>Пароль</b></label>
-				  <input type="password" placeholder="Введите пароль" name="psw" required>
+				  <input type="password" placeholder="Введите пароль" name="password" required>
 					
 				  <button type="submit">Войти</button>
 				  <label>
 					<input type="checkbox" checked="checked"> Запомнить меня
 				  </label>
 				</div>
-
 				<div class="container" style="background-color:#f1f1f1">
 				  <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Отмена</button>
 				  <span class="psw"><a href="#">Забыли пароль?</a></span>
@@ -90,11 +85,11 @@
       <div class="flexitem2">
       	<div class="timer">
       		<div class="time">
-      			<p>0:00</p>
+      			<span id="time">01:10:00</span>
       		</div>
       		<div class="timerButtonBlock">
-      			<button class="timer-button">Старт</button>
-          		<button class="timer-button">Стоп</button>
+      			<button class="timer-button" onclick="startTimer()">Старт</button>
+          		<button class="stop-button" onclick="stopTimer()">Стоп</button>
       		</div>
       	</div>
         <div class="taskArea">
@@ -107,87 +102,8 @@
         </div>
       </div>
     </div>
-    
-
-
-	<script>
-	// Get the modal
-	var signup = document.getElementById('id01');
-	var login = document.getElementById('id02');
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		if (event.target == signup) {
-			signup.style.display = "none";
-		} else if (event.target == login){
-			login.style.display = "none";
-		}
-	}
-    function Calendar2(id, year, month) {   
-    	var Dlast = new Date(year,month+1,0).getDate(),
-    	    D = new Date(year,month,Dlast),
-    	    DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
-    	    DNfirst = new Date(D.getFullYear(),D.getMonth(),1).getDay(),
-    	    calendar = '<tr>',
-    	    month=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
-    	if (DNfirst != 0) 
-    	{
-    		for(var  i = 1; i < DNfirst; i++) calendar += '<td>';
-    	}
-    	else
-    	{
-      		for(var  i = 0; i < 6; i++) calendar += '<td>';
-    	}
-
-    	for(var  i = 1; i <= Dlast; i++) {
-      		if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth()) 
-      		{
-        		calendar += '<td class="cell today">' + i;
-      		}
-      		else
-      		{
-        		calendar += '<td class = "cell">' + i;
-      		}
-      		if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0) 
-      		{
-        		calendar += '<tr>';
-      		}
-    	}
-    	for(var  i = DNlast; i < 7; i++) calendar += '<td>&nbsp;';
-    	document.querySelector('#'+id+' tbody').innerHTML = calendar;
-    	document.querySelector('#'+id+' thead td:nth-child(2)').innerHTML = month[D.getMonth()] +' '+ D.getFullYear();
-    	document.querySelector('#'+id+' thead td:nth-child(2)').dataset.month = D.getMonth();
-    	document.querySelector('#'+id+' thead td:nth-child(2)').dataset.year = D.getFullYear();
-    	if (document.querySelectorAll('#'+id+' tbody tr').length < 6) 
-    	{  // чтобы при перелистывании месяцев не "подпрыгивала" вся страница, добавляется ряд пустых клеток. Итог: всегда 6 строк для цифр
-        	document.querySelector('#'+id+' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
-    	}
-    }
-
-    Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
-    // переключатель минус месяц
-    document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
-      Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);      
-    }
-    // переключатель плюс месяц
-    document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
-      Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
-    }
-
-	$(document).ready(function() 
-	{			
-	    $('table').on('click', '.cell', function () 
-	    {	
-	        var index = $('.cell').index();	
-	        $('.cell').filter(function(){
-	        	return $(this).index() != index;
-	        }).removeClass('click');
-	    	
-	    	$(this).toggleClass('click');
-	    });
-	});
-
-
-    </script>
+	
+	<script charset="windows-1251" src="calendar.js"></script>
+	<script src="timer.js"></script>
   </body>
 </html>

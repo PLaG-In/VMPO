@@ -6,7 +6,7 @@ import (
 )
 
 func get_list_data(w http.ResponseWriter, r *http.Request) {
-	key := r.FormValue("Secret")
+	/*key := r.FormValue("Secret")
 	date := r.FormValue("Date")
 	if check_session(key){
 		answer := list_data(date)
@@ -17,7 +17,7 @@ func get_list_data(w http.ResponseWriter, r *http.Request) {
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		PrintToScreen(w, js)
-	}
+	}*/
 }
 
 //Для юнит-тестов

@@ -3,12 +3,15 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
 func auth(w http.ResponseWriter, r *http.Request) {
 	login := r.FormValue("login")
 	pass := r.FormValue("password")
+
+	fmt.Println("login: " + login + " pass: " + pass)
 
 	answer := get_login(login, pass)
 	PrintToScreen(w, answer)
