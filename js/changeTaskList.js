@@ -1,21 +1,21 @@
 var selectedTask = null;
 var taskList = {
-	task1: [1, "Ничего", "12.12.2012", "18:00"],
-	task2: [2, "Снова ничего", "13.13.2013", "13:00"],
-	task3: [3, "Убить всех человеков", "10.02.2018", "04:20"],
-	task4: [4, "Сидеть в одиночестве и думать о вечном", "11.02.2018", "00:00"],
+	1: [1, "Ничего", "12.12.2012", "18:00"],
+	2: [2, "Снова ничего", "13.13.2013", "13:00"],
+	3: [3, "Убить всех человеков", "10.02.2018", "04:20"],
+	4: [4, "Сидеть в одиночестве и думать о вечном", "11.02.2018", "00:00"],
 };
 
 function addTask() 
 {
 	var task = getTask();
-	var size = Object.keys(taskList).length + 1;
-	if (taskList["task" + (size)] != null) {
-		task[0] = size + 1;
-		taskList["task" + (size + 1)] = task;
-	}else {
-		taskList["task" + (size)] = task;
+	var lastKey = 0;
+	for (var key in taskList) {
+		lastKey = key;
 	}
+	var newKey = Number(lastKey) + 1;
+	task[0] = newKey;
+	taskList[newKey] = task;
 	var tr = '<tr>'; // создаем строку таблицы
 	task.forEach(function(item) {
 		tr += '<td>' + item + '</td>'; // добавлЯем столбцы в строку
@@ -28,7 +28,8 @@ function deleteTask()
 {
 	if (selectedTask != null) 
 	{
-		delete taskList["task" + (selectedTask.index() + 1)];
+		var id = selectedTask.context.cells[0].textContent;
+		delete taskList[id];
 		selectedTask.remove();
 	}
 }
@@ -44,7 +45,7 @@ function getTaskList() {
 
 function getTask() {
 	//тут будет запрос
-	var id = Object.keys(taskList).length + 1;;
+	var id = 0;
 	var task = "Возрождаюсь";
 	var date = "30.02.2018";
 	var time = "20:00";
