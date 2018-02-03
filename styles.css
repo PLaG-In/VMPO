@@ -271,6 +271,14 @@ hr {
     margin-bottom: 25px;
 }
 
+#taskTable{
+    width: 100%;
+}
+
+.headTaskTable{
+    background: #fefefe;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
