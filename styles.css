@@ -36,6 +36,9 @@
     color: #fff;
 }
 
+.hover_color { 
+	background-color: #808080 !important; 
+}
 
 .headSite{
     width: 100%;
@@ -273,6 +276,11 @@ hr {
 
 #taskTable{
     width: 100%;
+}
+
+.selectlines {
+	background-color:#345E88;
+	color: #ffffff;
 }
 
 .headTaskTable{

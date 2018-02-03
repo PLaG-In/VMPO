@@ -1,18 +1,3 @@
-var SERVER_URL = "http://localhost:8080/";
-		// 1. —оздаЄм новый объект XMLHttpRequest
-		// Get the modal
-	var signup = document.getElementById('id01');
-	var login = document.getElementById('id02');
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		if (event.target == signup) {
-			signup.style.display = "none";
-		} else if (event.target == login){
-			login.style.display = "none";
-		}
-	}
-	
     function Calendar2(id, year, month) {   
     	var Dlast = new Date(year,month+1,0).getDate(),
     	    D = new Date(year,month,Dlast),
@@ -49,21 +34,22 @@ var SERVER_URL = "http://localhost:8080/";
     	document.querySelector('#'+id+' thead td:nth-child(2)').dataset.month = D.getMonth();
     	document.querySelector('#'+id+' thead td:nth-child(2)').dataset.year = D.getFullYear();
     	if (document.querySelectorAll('#'+id+' tbody tr').length < 6) 
-    	{  // чтобы при перелистывании мес€цев не "подпрыгивала" вс€ страница, добавл€етс€ р€д пустых клеток. »тог: всегда 6 строк дл€ цифр
+    	{  // чтобы при перелистывании месяцев не "подпрыгивала" вс€ страница, добавляется ряд пустых клеток. итог: всегда 6 строк для цифр
         	document.querySelector('#'+id+' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
     	}
     }
 
     Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
-    // переключатель минус мес€ц
+    // переключатель минус месяц
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);      
     }
-    // переключатель плюс мес€ц
+    // переключатель плюс месяц
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
     }
 
+	
 	$(document).ready(function() 
 	{			
 	    $('table').on('click', '.cell', function () 
@@ -72,7 +58,20 @@ var SERVER_URL = "http://localhost:8080/";
 	        $('.cell').filter(function(){
 	        	return $(this).index() != index;
 	        }).removeClass('click');
-	    	
+				
+			$("#taskTable tbody tr").detach();
+
+			//заполнение таблицы задачами
+			var taskList = getTaskList();
+	    	for (property in taskList) {
+			  var tr = '<tr>'; // создаем строку таблицы
+			  taskList[property].forEach(function(item) {
+				tr += '<td>' + item + '</td>'; // добавляем столбцы в строку
+			  });
+			  tr += '</tr>'; // закрываем строку таблицы
+			  $('#taskTable > tbody:last-child').append(tr); // добавляем полученную строку в дом
+			}
+			
 	    	$(this).toggleClass('click');
 	    });
 	});
