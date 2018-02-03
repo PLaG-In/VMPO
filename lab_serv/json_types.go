@@ -24,3 +24,7 @@ type TaskList struct {
 	Length int
 	task   []Task
 }
+
+type Success struct {
+	Code int
+}
