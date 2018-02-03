@@ -3,24 +3,27 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
-func auth(w http.ResponseWriter, r *http.Request) {
-	login := r.FormValue("user")
-	pass := r.FormValue("password")
-
-	fmt.Println("login: " + login + " pass: " + pass)
-
-	answer := get_login(login, pass)
-	PrintToScreen(w, answer)
+func get_task_des(w http.ResponseWriter, r *http.Request) {
+	key := r.FormValue("Secret")
+	task_id := r.FormValue("id_task")
+	if check_session(key) {
+		answer := task_des(task_id)
+		PrintToScreen(w, answer)
+	} else {
+		authAndRegFailed := FailAnswer{403, "Неправильный ключ"}
+		js, err := json.Marshal(authAndRegFailed)
+		checkErr(err)
+		PrintToScreen(w, js)
+	}
 }
 
 //Для юнит-тестов
-func get_login(login string, pass string) []byte {
+func task_des(id string) []byte {
 	//Поиск в бд
-	rows, err := GetAnswer("SELECT idusers FROM users WHERE login=\"" + login + "\" AND pass=\"" + pass + "\"")
+	rows, err := GetAnswer("")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
@@ -28,15 +31,15 @@ func get_login(login string, pass string) []byte {
 		return js
 	}
 	for rows.Next() {
-		var username int
-		err := rows.Scan(&username)
+		var des string
+		err := rows.Scan(&des)
 		if err != nil {
 			authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 			js, err := json.Marshal(authAndRegFailed)
 			checkErr(err)
 			return js
 		}
-		authAndRegOK := AuthAndRegOK{200, start_session(), username}
+		authAndRegOK := FailAnswer{200, des}
 		js, err := json.Marshal(authAndRegOK)
 		if err != nil {
 			authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
@@ -46,7 +49,7 @@ func get_login(login string, pass string) []byte {
 		}
 		return js
 	}
-	authAndRegFailed := FailAnswer{403, "Неправильный пароль"}
+	authAndRegFailed := FailAnswer{403, "Задачи нет в базе"}
 	js, err := json.Marshal(authAndRegFailed)
 	checkErr(err)
 	return js
