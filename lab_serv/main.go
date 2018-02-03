@@ -16,8 +16,8 @@ func main() {
 	http.HandleFunc("/auth", auth)
 	http.HandleFunc("/reg", reg)
 	http.HandleFunc("/get_list_data", get_list_data)
-	/*http.HandleFunc("/get_task_des", get_task_des)
-	http.HandleFunc("/add_task", add_task)
+	http.HandleFunc("/get_task_des", get_task_des)
+	/*http.HandleFunc("/add_task", add_task)
 	http.HandleFunc("/remove_task", remove_task)
 	http.HandleFunc("/remove_task_all", remove_task_all)
 	http.HandleFunc("/edit_task", edit_task)
@@ -41,7 +41,7 @@ func checkState(w http.ResponseWriter, r *http.Request) {
 	authAndRegOK := AuthAndRegOK{200, "", 0}
 	js, err := json.Marshal(authAndRegOK)
 	if err != nil {
-		authAndRegFailed := AuthAndRegFAIL{500, "Серверная ошибка"}
+		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		PrintToScreen(w, js)

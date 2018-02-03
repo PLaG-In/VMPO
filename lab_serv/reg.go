@@ -18,7 +18,7 @@ func reg(w http.ResponseWriter, r *http.Request) {
 func get_reg(login string, pass string) []byte {
 	rows, err := GetAnswer("SELECT id FROM users WHERE login = \"" + login + "\"")
 	if err != nil {
-		authAndRegFailed := AuthAndRegFAIL{500, "Серверная ошибка"}
+		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		return js
@@ -26,7 +26,7 @@ func get_reg(login string, pass string) []byte {
 	var uid int
 	for rows.Next() {
 		//Error логин существует
-		authAndRegFailed := AuthAndRegFAIL{500, "Серверная ошибка"}
+		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		return js
@@ -35,7 +35,7 @@ func get_reg(login string, pass string) []byte {
 	err = Update("INSERT users SET idusers=\"" + strconv.Itoa(uid+1) + "\", login=\"" + login +
 		"\",pass=\"" + pass + "\"")
 	if err != nil {
-		authAndRegFailed := AuthAndRegFAIL{500, "Серверная ошибка"}
+		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		return js
@@ -44,7 +44,7 @@ func get_reg(login string, pass string) []byte {
 	authAndRegOK := AuthAndRegOK{200, start_session(), uid + 1}
 	js, err := json.Marshal(authAndRegOK)
 	if err != nil {
-		authAndRegFailed := AuthAndRegFAIL{500, "Серверная ошибка"}
+		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		return js
