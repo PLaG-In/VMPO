@@ -14,7 +14,7 @@ function loginRequest(){
 			return false;
 		}
 		
-		var postData = { user : userStr, password : passwordStr };
+		var postData = { login : userStr, password : passwordStr };
 		$.ajax({
 			type: 'POST',
 			url: url,
@@ -60,7 +60,7 @@ function loginRequest(){
 
 function exitRequest(){
 	var url = SERVER_URL + '/sign_out';
-	var postData = { user : chat.username, command : 'remove_visitor'};
+	var postData = { login : userStr, command : 'remove_visitor'};
 	console.log(postData);
 		
 	return $.ajax({
@@ -96,7 +96,7 @@ function signupRequest(){
 			return false;
 		}
 		
-		var postData = { user : userStr, password : passwordStr };
+		var postData = { login : userStr, password : passwordStr };
 		$.ajax({
 			type: 'POST',
 			url: url,
