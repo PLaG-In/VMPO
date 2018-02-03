@@ -8,7 +8,7 @@ import (
 )
 
 func auth(w http.ResponseWriter, r *http.Request) {
-	login := r.FormValue("user")
+	login := r.FormValue("login")
 	pass := r.FormValue("password")
 
 	fmt.Println("login: " + login + " pass: " + pass)
@@ -20,7 +20,7 @@ func auth(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func get_login(login string, pass string) []byte {
 	//Поиск в бд
-	rows, err := GetAnswer("SELECT idusers FROM users WHERE login=\"" + login + "\" AND pass=\"" + pass + "\"")
+	rows, err := GetAnswer("SELECT idusers FROM users WHERE login=\"" + login + "\" AND password=\"" + pass + "\"")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
