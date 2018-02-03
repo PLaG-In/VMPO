@@ -8,7 +8,7 @@ import (
 )
 
 func auth(w http.ResponseWriter, r *http.Request) {
-	login := r.FormValue("login")
+	login := r.FormValue("user")
 	pass := r.FormValue("password")
 
 	fmt.Println("login: " + login + " pass: " + pass)

@@ -3,6 +3,8 @@
 	<head>
       <link rel="stylesheet" href="styles.css">
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	   <meta charset="utf-8">
+	   <title>Ежедневник</title>
   	</head>
   
   <body>
@@ -11,25 +13,26 @@
         <div class="headSite-item one">
           Чтобы воспользовать сервисом необходимо зарегистрироваться.
           <br>Если вы уже зарегистрированы войдите под своей учетной записью.
+		  <p id="loginResult">Тебя нет</p>
         </div>
         <div class="headSite-item two">
           <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Регистрация</button>
 
 			<div id="id01" class="modal" style="color: #000;">
 			  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">&times;</span>
-			  <form class="modal-content animate" action="/action_page.php">
+			  <form class="modal-content animate">
 				<div class="container">
 				  <h1>Регистрация</h1>
 				  <p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
 				  <hr>
 				  <label><b>Email</b></label>
-				  <input type="text" placeholder="Введите Email" name="email" required>
+				  <input type="text" placeholder="Введите Email" id="slogin" required>
 
 				  <label><b>Пароль</b></label>
-				  <input type="password" placeholder="Введите пароль" name="psw" required>
+				  <input type="password" placeholder="Введите пароль" id="spassword" required>
 
 				  <label><b>Повторите пароль</b></label>
-				  <input type="password" placeholder="Повторите пароль" name="psw-repeat" required>
+				  <input type="password" placeholder="Повторите пароль" id="repassword" required>
 				  
 				  <label>
 					<input type="checkbox" checked="checked"> Запомнить меня
@@ -38,7 +41,7 @@
 
 				<div class="container" style="background-color:#f1f1f1">
 				  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtnr">Отмена</button>
-				  <button type="submit" class="signupbtn">Регистрация</button>
+				  <button type="submit" class="signupbtn" onclick="signupRequest()">Регистрация</button>
 				</div>
 			  </form>
 			</div>
@@ -49,15 +52,15 @@
 
 			<div id="id02" class="modal" style="color: #000;">
 			  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
-			  <form class="modal-content animate" method="get" onsubmit="loadPhones()">
+			  <form class="modal-content animate" method="get" onsubmit="">
 				<div class="container">
 				  <label><b>Имя пользователя</b></label>
-				  <input type="text" placeholder="Введите имя" name="login" required>
+				  <input type="text" placeholder="Введите имя" id="alogin" required>
 
 				  <label><b>Пароль</b></label>
-				  <input type="password" placeholder="Введите пароль" name="password" required>
+				  <input type="password" placeholder="Введите пароль" id="apassword" required>
 					
-				  <button type="submit">Войти</button>
+				  <button type="submit" onclick="loginRequest()">Войти</button>
 				  <label>
 					<input type="checkbox" checked="checked"> Запомнить меня
 				  </label>
@@ -103,7 +106,8 @@
       </div>
     </div>
 	
-	<script charset="windows-1251" src="calendar.js"></script>
-	<script src="timer.js"></script>
+	<script charset="windows-1251" src="js/calendar.js"></script>
+	<script charset="windows-1251" src="js/timer.js"></script>
+	<script charset="windows-1251" src="js/request.js"></script>
   </body>
 </html>
