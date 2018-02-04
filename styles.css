@@ -89,7 +89,7 @@
 .flexitem1{
     width: 50%;
     height: 80vh;
-    padding: 2%;
+    margin: 2%;
 }
 .flexitem2{
     width: 50%;
@@ -123,6 +123,22 @@
 }
 
 input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+}
+
+textarea{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
