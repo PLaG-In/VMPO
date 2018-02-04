@@ -27,7 +27,7 @@ func edit_task(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func task_update(id_task string, name string, data string, priority string, description string) []byte {
 	//Поиск в бд
-	err := Update("")
+	err := Update_DB("")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
