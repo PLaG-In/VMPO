@@ -53,6 +53,10 @@ function loginRequest(){
 	return true;
 }
 
+function getTaskList(){
+	var url = SERVER_URL + '/get_list_data';
+}
+
 function exitRequest(){
 	var url = SERVER_URL + '/sign_out';
 	var postData = { login : $('#userName').val(), command : 'sign_out'};
