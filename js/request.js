@@ -2,10 +2,10 @@ var SERVER_URL = "http://localhost:8080";
 
 function loginRequest(){
 		var url = SERVER_URL + '/auth';
-		
+
  		var resultLabel = $('#loginResult');
 		resultLabel.text("");
-		
+
 		var userStr = $('#alogin').val();
 		var passwordStr = $('#apassword').val();
 		if (userStr == '' || passwordStr == '')
@@ -15,7 +15,7 @@ function loginRequest(){
 		}
 		pageSetup.hideLoginControls();
 		$('#userName').text(userStr);
-		
+
 		var postData = { login : userStr, password : passwordStr };
 		$.ajax({
 			type: 'POST',
@@ -45,7 +45,7 @@ function loginRequest(){
 				{
 			 		pageSetup.showLoginControls();
 				}
-			}, 
+			},
 			error: function(){
 				console.log("[LOGIN] Unhandled server error");
 			}
@@ -57,7 +57,7 @@ function exitRequest(){
 	var url = SERVER_URL + '/sign_out';
 	var postData = { login : userStr, command : 'remove_visitor'};
 	console.log(postData);
-	pageSetup.showLoginControls();	
+	pageSetup.showLoginControls();
 	return $.ajax({
 		async: false,
 		type: 'POST',
@@ -72,22 +72,22 @@ function exitRequest(){
 
 function signupRequest(){
 		var url = SERVER_URL + '/reg';
-		
+
  		var resultLabel = $('#loginResult');
-		resultLabel.text(""); 
-		
+		resultLabel.text("");
+
 		var userStr = $('#slogin').val();
 		var passwordStr = $('#spassword').val();
 		var repasswordStr = $('#repassword').val();
 		if (userStr == '' || passwordStr == '')
 		{
-			alert('Заполните все поля');
+			alert('Р—Р°РїРѕР»РЅРёС‚Рµ РІСЃРµ РїРѕР»СЏ');
 			return false;
 		}
-		
-		if (passwordStr != repasswordStr) 
+
+		if (passwordStr != repasswordStr)
 		{
-			alert('Пароли не совпадают');
+			alert('РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚');
 			return false;
 		}
 		pageSetup.hideLoginControls();

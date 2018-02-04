@@ -1,11 +1,11 @@
-    function Calendar2(id, year, month) {   
+    function Calendar2(id, year, month) {
     	var Dlast = new Date(year,month+1,0).getDate(),
     	    D = new Date(year,month,Dlast),
     	    DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
     	    DNfirst = new Date(D.getFullYear(),D.getMonth(),1).getDay(),
     	    calendar = '<tr>',
-    	    month=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
-    	if (DNfirst != 0) 
+    	    month=["РЇРЅРІР°СЂСЊ","Р¤РµРІСЂР°Р»СЊ","РњР°СЂС‚","РђРїСЂРµР»СЊ","РњР°Р№","РСЋРЅСЊ","РСЋР»СЊ","РђРІРіСѓСЃС‚","РЎРµРЅС‚СЂСЏР±СЂСЊ","РћРєС‚СЏР±СЂСЊ","РќРѕСЏР±СЂСЊ","Р”РµРєР°Р±СЂСЊ"];
+    	if (DNfirst != 0)
     	{
     		for(var  i = 1; i < DNfirst; i++) calendar += '<td>';
     	}
@@ -15,7 +15,7 @@
     	}
 
     	for(var  i = 1; i <= Dlast; i++) {
-      		if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth()) 
+      		if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth())
       		{
         		calendar += '<td class="cell today">' + i;
       		}
@@ -23,7 +23,7 @@
       		{
         		calendar += '<td class = "cell">' + i;
       		}
-      		if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0) 
+      		if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0)
       		{
         		calendar += '<tr>';
       		}
@@ -33,45 +33,44 @@
     	document.querySelector('#'+id+' thead td:nth-child(2)').innerHTML = month[D.getMonth()] +' '+ D.getFullYear();
     	document.querySelector('#'+id+' thead td:nth-child(2)').dataset.month = D.getMonth();
     	document.querySelector('#'+id+' thead td:nth-child(2)').dataset.year = D.getFullYear();
-    	if (document.querySelectorAll('#'+id+' tbody tr').length < 6) 
-    	{  // чтобы при перелистывании месЯцев не "подпрыгивала" вся страница, добавлЯетсЯ рЯд пустых клеток. итог: всегда 6 строк длЯ цифр
+    	if (document.querySelectorAll('#'+id+' tbody tr').length < 6)
+    	{  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅ 6 пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         	document.querySelector('#'+id+' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
     	}
     }
 
     Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
-    // переключатель минус месЯц
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
-      Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);      
+      Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);
     }
-    // переключатель плюс месЯц
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
     }
 
-	
-	$(document).ready(function() 
-	{			
-	    $('table').on('click', '.cell', function () 
-	    {	
-	        var index = $('.cell').index();	
+
+	$(document).ready(function()
+	{
+	    $('table').on('click', '.cell', function ()
+	    {
+	        var index = $('.cell').index();
 	        $('.cell').filter(function(){
 	        	return $(this).index() != index;
 	        }).removeClass('click');
-				
+
 			$("#taskTable tbody tr").detach();
 
-			//заполнение таблицы задачами
 			var taskList = getTaskList();
 	    	for (property in taskList) {
-			  var tr = '<tr>'; // создаем строку таблицы
+			  var tr = '<tr>';
 			  taskList[property].forEach(function(item) {
-				tr += '<td>' + item + '</td>'; // добавлЯем столбцы в строку
+				tr += '<td>' + item + '</td>';
 			  });
-			  tr += '</tr>'; // закрываем строку таблицы
-			  $('#taskTable > tbody:last-child').append(tr); // добавлЯем полученную строку в дом
+			  tr += '</tr>';
+			  $('#taskTable > tbody:last-child').append(tr);
 			}
-			
+
 	    	$(this).toggleClass('click');
 	    });
 	});

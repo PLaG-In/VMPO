@@ -1,12 +1,12 @@
 var selectedTask = null;
 var taskList = {
-	1: [1, "Ничего", "12.12.2012", "18:00"],
-	2: [2, "Снова ничего", "13.13.2013", "13:00"],
-	3: [3, "Убить всех человеков", "10.02.2018", "04:20"],
-	4: [4, "Сидеть в одиночестве и думать о вечном", "11.02.2018", "00:00"],
+	1: [1, "РЈРјСЂРё", "18:00", "Р’С‹СЃРѕРєРёР№"],
+	2: [2, "РЈР±РµР№", "13:00", "РќРёР·РєРёР№"],
+	3: [3, "Р–РёРІРё", "04:20", "Р’С‹СЃРѕРєРёР№"],
+	4: [4, "РљСЂРёС‡Рё", "00:00", "Р’С‹СЃРѕРєРёР№"],
 };
 
-function addTask() 
+function addTask()
 {
 	var task = getTask();
 	var lastKey = 0;
@@ -16,17 +16,17 @@ function addTask()
 	var newKey = Number(lastKey) + 1;
 	task[0] = newKey;
 	taskList[newKey] = task;
-	var tr = '<tr>'; // создаем строку таблицы
+	var tr = '<tr>';
 	task.forEach(function(item) {
-		tr += '<td>' + item + '</td>'; // добавлЯем столбцы в строку
+		tr += '<td>' + item + '</td>';
 	});
 	tr += '</tr>';
 	$('#taskTable > tbody:last-child').append(tr);
 }
 
-function deleteTask() 
+function deleteTask()
 {
-	if (selectedTask != null) 
+	if (selectedTask != null)
 	{
 		var id = selectedTask.context.cells[0].textContent;
 		delete taskList[id];
@@ -36,7 +36,7 @@ function deleteTask()
 
 function changeTask()
 {
-	
+
 }
 
 function getTaskList() {
@@ -44,24 +44,23 @@ function getTaskList() {
 }
 
 function getTask() {
-	//тут будет запрос
 	var id = 0;
-	var task = "Возрождаюсь";
-	var date = "30.02.2018";
+	var task = "Р‘РµРіРё";
 	var time = "20:00";
+	var date = "Р’С‹СЃРѕРєРёР№";
 	return [id, task, date, time];
 }
 
-$(document).ready(function() 
-	{			
-	    $('#taskTable').on('click', 'tbody tr', function () 
-	    {	
+$(document).ready(function()
+	{
+	    $('#taskTable').on('click', 'tbody tr', function ()
+	    {
 			if (selectedTask != $(this) && selectedTask != null)
 			{
 				selectedTask.removeClass('selectlines');
 			}
 
 			selectedTask = $(this);
-	    	$(this).toggleClass('selectlines'); 
+	    	$(this).toggleClass('selectlines');
 	    });
 	});
