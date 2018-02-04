@@ -46,6 +46,20 @@ func createFile(path string) {
 	fmt.Println("==> done creating file", path)
 }
 
+func closeSession(path string) {
+	// detect if file exists
+	path = "./Session/" + path + ".txt"
+	var _, err = os.Stat(path)
+
+	checkErr(err)
+
+	// create file if not exists
+	err = os.Remove(path)
+	checkErr(err)
+
+	fmt.Println("==> delete file", path)
+}
+
 func check_session(key string) bool {
 	answer, err := exists("./Session/" + key + ".txt")
 	checkErr(err)
