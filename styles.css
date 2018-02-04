@@ -116,9 +116,9 @@
 }
 
 .flex-button{
-    width: 33%;
+    width: 33.3%;
     height: 100%;
-    padding: 1%;
+    padding: 0;
     margin: 1%;
 }
 
@@ -157,8 +157,7 @@ button {
     align-items: center; /* Выравнивание текста по вертикали */
     justify-content: center;  
     display: flex; 
-    padding: 0;
-    margin: 1px;
+
 }
 p{
     margin: 0;
@@ -166,14 +165,14 @@ p{
 }
 
 .timer-button{
-    height: 80%;
-    width: 40%;
+    height: 100%;
+    width: 50%;
 }
 
 .stop-button{
     background-color: #f44336;
-	height: 80%;
-    width: 40%;
+	height: 100%;
+    width: 50%;
 }
 
 .timerButtonBlock{
@@ -181,7 +180,8 @@ p{
     height: 100%;
     display: flex;
     align-items: center; /* Выравнивание текста по вертикали */
-    justify-content: center;     
+    justify-content: center;  
+    padding: 0 0 0 1%;  
 }
 
 button:hover {
