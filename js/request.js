@@ -55,7 +55,7 @@ function loginRequest(){
 
 function exitRequest(){
 	var url = SERVER_URL + '/sign_out';
-	var postData = { login : userStr, command : 'remove_visitor'};
+	var postData = { login : $('#userName').val(), command : 'sign_out'};
 	console.log(postData);
 	pageSetup.showLoginControls();
 	return $.ajax({
@@ -72,9 +72,6 @@ function exitRequest(){
 
 function signupRequest(){
 		var url = SERVER_URL + '/reg';
-
- 		var resultLabel = $('#loginResult');
-		resultLabel.text("");
 
 		var userStr = $('#slogin').val();
 		var passwordStr = $('#spassword').val();
