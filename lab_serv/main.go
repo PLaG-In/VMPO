@@ -105,7 +105,12 @@ func testing(w http.ResponseWriter, r *http.Request) {
 	if des_data_struct.Code != 200 {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
-	//6 выходим из сети
+	//6 добавление записи
+	//7 редактирование записи
+	//8 удаление записи
+	//9 старт таймер
+	//10 стоп таймер
+	//11 выходим из сети
 	sign_out_data = Success{}
 	answer = sign_out_test(auth_data.SecretCode)
 	bytes = []byte(answer)
