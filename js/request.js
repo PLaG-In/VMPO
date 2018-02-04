@@ -1,10 +1,8 @@
 var SERVER_URL = "http://localhost:8080";
-
+var secret = "";
+var userID = 0;
 function loginRequest(){
 		var url = SERVER_URL + '/auth';
-
- 		var resultLabel = $('#loginResult');
-		resultLabel.text("");
 
 		var userStr = $('#alogin').val();
 		var passwordStr = $('#apassword').val();
@@ -23,30 +21,10 @@ function loginRequest(){
 			data: postData,
 			dataType: 'json',
 			success: function(result){
-				if (result.status != "OK")
-				{
-					switch (result.message)
-					{
-						case "WRONG_PASSWORD":
-							resultLabel.text("Wrong password");
-							break;
-						case "WRONG_LOGIN":
-							resultLabel.text("Wrong login");
-							break;
-						case "ALREADY_LOGGED":
-							resultLabel.text("User has already logged in");
-							break;
-						default:
-							resultLabel.text("Unknown server response");
-							break;
-					}
-				}
-	 			else
-				{
-			 		pageSetup.showLoginControls();
-				}
+				alert('Залогинился');
 			},
 			error: function(){
+				pageSetup.showLoginControls();
 				console.log("[LOGIN] Unhandled server error");
 			}
 		});
@@ -55,6 +33,20 @@ function loginRequest(){
 
 function getTaskList(){
 	var url = SERVER_URL + '/get_list_data';
+	// var secret =
+	// var date =
+	// var id =
+	var postData = {/* secret : secret, date : date, id_user : id*/ };
+	$.ajax({
+		type: 'GET',
+		url: url,
+		data: postData,
+		dataType: 'json',
+		success: function(result){
+			alert('ты получил список');
+		}
+	});
+	return true;
 }
 
 function exitRequest(){
@@ -69,7 +61,7 @@ function exitRequest(){
 		data: postData,
 		dataType: 'json',
 		error: function(result){
-			console.log("[REMOVE_VISITOR] Unhandled server error");
+			console.log("[sign_out] Unhandled server error");
 		}
 	});
 }
@@ -100,30 +92,12 @@ function signupRequest(){
 			data: postData,
 			dataType: 'json',
 			success: function(result){
-				if (result.status != "OK")
-				{
-					switch (result.message)
-					{
-						case "WRONG_PASSWORD":
-							resultLabel.text("Wrong password");
-							break;
-						case "WRONG_LOGIN":
-							resultLabel.text("Wrong login");
-							break;
-						case "ALREADY_LOGGED":
-							resultLabel.text("User has already logged in");
-							break;
-						default:
-							resultLabel.text("Unknown server response");
-							break;
-					}
-				}
-				else
-				{
-			 		pageSetup.showLoginControls();
-				}
+				secret = $(result).filter("SecretCode");
+				userID = $(result).filter("User_ID");
+				alert('Зарегистрировался');
 			},
 			error: function(){
+				pageSetup.showLoginControls();
 				console.log("[SIGNUP] Unhandled server error");
 			}
 		});

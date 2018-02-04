@@ -54,10 +54,13 @@
 	{
 	    $('table').on('click', '.cell', function ()
 	    {
-	        var index = $('.cell').index();
-	        $('.cell').filter(function(){
-	        	return $(this).index() != index;
-	        }).removeClass('click');
+        var index = -1;
+        if ($('.click').index() != -1){
+          index = $('.click')[0].innerText;
+        }
+        $('.cell').filter(function(){
+          return $(this)[0].innerText == index;
+        }).removeClass('click');
 
 			$("#taskTable tbody tr").detach();
       deselectTask();
