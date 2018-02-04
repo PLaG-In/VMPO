@@ -9,7 +9,7 @@ var taskList = {
 
 function addTask()
 {
-	var task = getTask();
+	var task = createTask();
 	var lastKey = 0;
 	for (var key in taskList) {
 		lastKey = key;
@@ -47,14 +47,18 @@ function putTime()
 {
 	if (isSelected())
 	{
-		selectedTask.context.cells[2].textContent = getTime();
-		if (taskList.currentTaskId !== undefined)
+		$('#taskTable tbody tr')[currentTaskId - 1].cells[2].textContent = getTime();
+		if (taskList[currentTaskId] !== undefined)
 		{
 			taskList[currentTaskId][2] = getTime();
 		}else{
 			alert("Вы удалили задачу, которую выполняли(не надо так)")
 		}
 	}
+}
+
+function deselectTask(){
+	selectedTask = null;
 }
 
 function deleteTask()
@@ -64,12 +68,27 @@ function deleteTask()
 		var id = selectedTask.context.cells[0].textContent;
 		delete taskList[id];
 		selectedTask.remove();
+		deselectTask();
 	}
 }
 
 function changeTask()
 {
+	var id = selectedTask.context.cells[0].textContent;
+	taskList[id][1] = document.getElementById('eNameOfTask').value;
+	selectedTask.context.cells[1].textContent = taskList[id][1];
+	taskList[id][3] = document.getElementById('ePriority').value;
+	selectedTask.context.cells[3].textContent = taskList[id][3];
+}
 
+function getTask()
+{
+	if (selectedTask != null)
+	{
+		document.getElementById('eNameOfTask').value = selectedTask.context.cells[1].textContent;
+		//description get
+		document.getElementById('ePriority').value = selectedTask.context.cells[3].textContent;
+	}
 }
 
 function getTaskList()
@@ -77,12 +96,12 @@ function getTaskList()
 	return taskList;
 }
 
-function getTask() {
+function createTask() {
 	var id = 0;
-	var task = "Беги";
-	var time = "00:00";
-	var date = "Высокий";
-	return [id, task, date, time];
+	var task = $('#aNameOfTask').val();
+	var time = "00:00:00";
+	var priority = $('#aPriority').val();
+	return [id, task, time, priority];
 }
 
 $(document).ready(function()

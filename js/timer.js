@@ -31,9 +31,9 @@ function startTimer() {
 
 $("#timer-button").on("click", function() {
 	if($(this).attr("play") == 1) {
-		timerPaused = false;
-		$(this).attr("play", "0");
 		if (isSelected()) {
+				timerPaused = false;
+				$(this).attr("play", "0");
 				chooseTask();
 				document.getElementById("time").innerHTML = getTaskTime();
 				startTimer();

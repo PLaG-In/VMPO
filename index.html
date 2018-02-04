@@ -6,7 +6,7 @@
 	    <meta charset="utf-8">
 	    <title>Ежедневник</title>
   	</head>
-  
+
 	<body onLoad="pageSetup.showLoginControls()">
 		<div class="headSite">
 		 	<div class="headSite-item">
@@ -19,7 +19,7 @@
 					<p id="userName">Тебя нет</p>
 					<div id="id01" class="modal" style="color: #000;">
 						<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">&times;</span>
-						<form class="modal-content animate">
+						<form class="modal-content animate" onsubmit="document.getElementById('id01').style.display='none'; return false;">
 							<div class="container">
 								<h1>Регистрация</h1>
 								<p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
@@ -32,7 +32,7 @@
 
 								<label><b>Повторите пароль</b></label>
 								<input type="password" placeholder="Повторите пароль" id="repassword" required>
-							  
+
 								<label>
 									<input type="checkbox" checked="checked"> Запомнить меня
 							  	</label>
@@ -45,22 +45,22 @@
 						</form>
 					</div>
 			    </div>
-				
+
 			    <div class="headSite-item three">
 			    	<button id="loginBtn" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Войти</button>
-				  
+
 					<button id="exitBtn" onclick="exitRequest()" style="width:auto;">Выйти</button>
-				  
+
 					<div id="id02" class="modal" style="color: #000;">
 						<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
-						<form class="modal-content animate" method="get">
+						<form class="modal-content animate" method="get" onsubmit="document.getElementById('id02').style.display='none'; return false;">
 							<div class="container">
 								<label><b>Имя пользователя</b></label>
 								<input type="text" placeholder="Введите имя" id="alogin" required>
 
 								<label><b>Пароль</b></label>
 								<input type="password" placeholder="Введите пароль" id="apassword" required>
-								
+
 							 	<button onclick="loginRequest()">Войти</button>
 								<label>
 									<input type="checkbox" checked="checked"> Запомнить меня
@@ -78,8 +78,8 @@
 		<div class="searchLine">
 			<input type="text" placeholder="Введите запрос" id="search" required>
 			<button onclick="" class="btnSearch">Найти</button>
-		</div>   	
-		<div class="flex-conteiner"> 			
+		</div>
+		<div class="flex-conteiner">
 			<div class="flexitem1">
 			    <table id="calendar2">
 			    	<thead>
@@ -100,12 +100,12 @@
 			        		<td>Пт</td>
 			        		<td>Сб</td>
 			        		<td>Вс</td>
-			        	</tr>		
-			        </thead>		
+			        	</tr>
+			        </thead>
 			      	<tbody></tbody>
 			    </table>
 		  	</div>
-		  
+
 			<div class="flexitem2">
 			  	<div class="timer">
 			  		<div class="time">
@@ -131,11 +131,11 @@
 			    				</td>
 			    				<td>
 			    					Приоритет
-			    				</td>       				
+			    				</td>
 			    			</tr>
 			    		</thead>
 			    		<tbody>
-			    			
+
 			    		</tbody>
 			    	</table>
 			    </div>
@@ -143,47 +143,47 @@
 			    	<button class="flex-button" onclick="document.getElementById('id03').style.display='block'">Добавить запись</button>
 			    	<div id="id03" class="modal" style="color: #000;">
 						<span onclick="document.getElementById('id03').style.display='none'" class="close" title="Закрыть">&times;</span>
-						<form class="modal-content animate" method="get">
+						<form class="modal-content animate" method="get" onsubmit="document.getElementById('id03').style.display='none'; return false;">
 							<div class="container">
 								<h1>Добавление</h1>
 								<label><b>Задача</b></label>
-								<input type="text" placeholder="Ввод" id="nameOfTask" required>
+								<input type="text" placeholder="Ввод" id="aNameOfTask" required>
 
 								<label><b>Описание</b></label>
-								<textarea name="descriptionOfTask"></textarea>
+								<textarea name="aDescriptionOfTask"></textarea>
 								<label><b>Приоритет</b></label>
-								<select required>
+								<select id="aPriority" required>
 									<option selected disabled>Выберите приоритет</option>
 									<option>Высокий</option>
 									<option>Низкий</option>
 								</select>
-							 	<button onclick="addTask()">Добавить</button>								
+							 	<button onclick="addTask()">Добавить</button>
 							</div>
 					 	</form>
 					</div>
 
-			    	<button class="flex-button" onclick="document.getElementById('id04').style.display='block'">Редактировать запись</button>
+			    	<button class="flex-button" onclick="document.getElementById('id04').style.display='block'; getTask();">Редактировать запись</button>
 			    	<div id="id04" class="modal" style="color: #000;">
-						<span onclick="document.getElementById('id04').style.display='none'" class="close" title="Закрыть">&times;</span>
-						<form class="modal-content animate" method="get">
+						<span onclick="document.getElementById('id04').style.display='none';" class="close" title="Закрыть">&times;</span>
+						<form class="modal-content animate" method="get" onsubmit="document.getElementById('id04').style.display='none'; return false;">
 							<div class="container">
 								<h1>Редактирование</h1>
 								<label><b>Задача</b></label>
-								<input type="text" placeholder="Ввод" id="nameOfTask" required>
+								<input type="text" placeholder="Ввод" id="eNameOfTask" required>
 
 								<label><b>Описание</b></label>
-								<textarea name="descriptionOfTask"></textarea>
+								<textarea name="eDescriptionOfTask"></textarea>
 								<label><b>Приоритет</b></label>
-								<select required>
+								<select id="ePriority" required>
 									<option selected disabled>Выберите приоритет</option>
 									<option>Высокий</option>
 									<option>Низкий</option>
 								</select>
-							 	<button onclick="changeTask()">Изменить</button>								
+							 	<button onclick="changeTask()">Изменить</button>
 							</div>
 					 	</form>
 					</div>
-					
+
 			    	<button class="flex-button" onclick="deleteTask()">Удалить запись</button>
 
 			    </div>

@@ -60,7 +60,7 @@
 	        }).removeClass('click');
 
 			$("#taskTable tbody tr").detach();
-
+      deselectTask();
 			var taskList = getTaskList();
 	    	for (property in taskList) {
 			  var tr = '<tr>';
