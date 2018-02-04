@@ -7,131 +7,150 @@
 	   <title>Ежедневник</title>
   	</head>
   
-  <body onLoad="pageSetup.showLoginControls()">
-    <div class="headSite">
-      <div class="headSite-item">
-        <div class="headSite-item one">
-          Чтобы воспользовать сервисом необходимо зарегистрироваться.
-          <br>Если вы уже зарегистрированы войдите под своей учетной записью.
-		  <p id="loginResult">Тебя нет</p>
-        </div>
-        <div class="headSite-item two">
-          <button id="signUpBtn" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Регистрация</button>
-		  <p id="userName">Тебя нет</p>
-			<div id="id01" class="modal" style="color: #000;">
-			  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">&times;</span>
-			  <form class="modal-content animate">
-				<div class="container">
-				  <h1>Регистрация</h1>
-				  <p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
-				  <hr>
-				  <label><b>Email</b></label>
-				  <input type="text" placeholder="Введите Email" id="slogin" required>
+	<body onLoad="pageSetup.showLoginControls()">
+		<div class="headSite">
+		 	<div class="headSite-item">
+			    <div class="headSite-item one">
+			    	<p>Чтобы воспользовать сервисом необходимо зарегистрироваться.
+			    	<br>Если вы уже зарегистрированы войдите под своей учетной записью.</p>
+			    </div>
+			    <div class="headSite-item two">
+			    	<button id="signUpBtn" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Регистрация</button>
+					<p id="userName">Тебя нет</p>
+					<div id="id01" class="modal" style="color: #000;">
+						<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">&times;</span>
+						<form class="modal-content animate">
+							<div class="container">
+								<h1>Регистрация</h1>
+								<p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
+								<hr>
+								<label><b>Email</b></label>
+								<input type="text" placeholder="Введите Email" id="slogin" required>
 
-				  <label><b>Пароль</b></label>
-				  <input type="password" placeholder="Введите пароль" id="spassword" required>
+								<label><b>Пароль</b></label>
+								<input type="password" placeholder="Введите пароль" id="spassword" required>
 
-				  <label><b>Повторите пароль</b></label>
-				  <input type="password" placeholder="Повторите пароль" id="repassword" required>
+								<label><b>Повторите пароль</b></label>
+								<input type="password" placeholder="Повторите пароль" id="repassword" required>
+							  
+								<label>
+									<input type="checkbox" checked="checked"> Запомнить меня
+							  	</label>
+							</div>
+
+							<div class="container" style="background-color:#f1f1f1">
+								<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtnr">Отмена</button>
+								<button type="submit" class="signupbtn" onclick="signupRequest()">Регистрация</button>
+							</div>
+						</form>
+					</div>
+			    </div>
+				
+			    <div class="headSite-item three">
+			    	<button id="loginBtn" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Войти</button>
 				  
-				  <label>
-					<input type="checkbox" checked="checked"> Запомнить меня
-				  </label>
-				</div>
+					<button id="exitBtn" onclick="exitRequest()" style="width:auto;">Выйти</button>
+				  
+					<div id="id02" class="modal" style="color: #000;">
+						<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
+						<form class="modal-content animate" method="get">
+							<div class="container">
+								<label><b>Имя пользователя</b></label>
+								<input type="text" placeholder="Введите имя" id="alogin" required>
 
-				<div class="container" style="background-color:#f1f1f1">
-				  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtnr">Отмена</button>
-				  <button type="submit" class="signupbtn" onclick="signupRequest()">Регистрация</button>
-				</div>
-			  </form>
+								<label><b>Пароль</b></label>
+								<input type="password" placeholder="Введите пароль" id="apassword" required>
+								
+							 	<button onclick="loginRequest()">Войти</button>
+								<label>
+									<input type="checkbox" checked="checked"> Запомнить меня
+							  	</label>
+							</div>
+							<div class="container" style="background-color:#f1f1f1">
+								<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Отмена</button>
+								<span class="psw"><a href="#">Забыли пароль?</a></span>
+							</div>
+					 	</form>
+					</div>
+			    </div>
 			</div>
-        </div>
-		
-        <div class="headSite-item three">
-          <button id="loginBtn" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Войти</button>
+		</div>
+		<div class="searchLine">
+			<input type="text" placeholder="Введите запрос" id="search" required>
+			<button onclick="" class="btnSearch">Найти</button>
+		</div>   	
+		<div class="flex-conteiner"> 			
+			<div class="flexitem1">
+			    <table id="calendar2">
+			    	<thead>
+			        	<tr>
+			        		<td>
+			        			‹
+			        		</td>
+			        		<td colspan="5"></td>
+			        		<td>
+			        			›
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>Пн</td>
+			        		<td>Вт</td>
+			        		<td>Ср</td>
+			        		<td>Чт</td>
+			        		<td>Пт</td>
+			        		<td>Сб</td>
+			        		<td>Вс</td>
+			        	</tr>		
+			        </thead>		
+			      	<tbody></tbody>
+			    </table>
+		  	</div>
 		  
-		  <button id="exitBtn" onclick="exitRequest()" style="width:auto;">Выйти</button>
-		  
-			<div id="id02" class="modal" style="color: #000;">
-			  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
-			  <form class="modal-content animate" method="get">
-				<div class="container">
-				  <label><b>Имя пользователя</b></label>
-				  <input type="text" placeholder="Введите имя" id="alogin" required>
-
-				  <label><b>Пароль</b></label>
-				  <input type="password" placeholder="Введите пароль" id="apassword" required>
-					
-				  <button onclick="loginRequest()">Войти</button>
-				  <label>
-					<input type="checkbox" checked="checked"> Запомнить меня
-				  </label>
-				</div>
-				<div class="container" style="background-color:#f1f1f1">
-				  <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Отмена</button>
-				  <span class="psw"><a href="#">Забыли пароль?</a></span>
-				</div>
-			  </form>
-			</div>
-		  
-        </div>
-      </div>
-    </div>
-    <div class="flex-conteiner">
-      <div class="flexitem1">
-        <table id="calendar2">
-          <thead>
-            <tr><td>‹<td colspan="5"><td>›
-            <tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
-          <tbody>
-        </table>
-      </div>
-      
-      <div class="flexitem2">
-      	<div class="timer">
-      		<div class="time">
-      			<span id="time">00:00:00</span>
-      		</div>
-      		<div class="timerButtonBlock">
-      			<button class="timer-button" id="timer-button" play="1">Старт</button>
-          		<button class="stop-button" id="stop-button">Стоп</button>
-      		</div>
-      	</div>
-        <div class="taskArea">
-        	<table id="taskTable">
-        		<thead class="headTaskTable">
-        			<tr>
-        				<td>
-        					№
-        				</td>
-        				<td>
-        					Задача
-        				</td>
-        				<td>
-        					Дата
-        				</td>
-        				<td>
-        					Время
-        				</td>       				
-        			</tr>
-        		</thead>
-        		<tbody>
-        			
-        		</tbody>
-        	</table>
-        </div>
-        <div class="buttons">
-          <button class="flex-button" onclick="addTask()">Добавить запись</button>
-          <button class="flex-button" onclick="changeTask()">Редактировать запись</button>
-          <button class="flex-button" onclick="deleteTask()">Удалить запись</button>
-        </div>
-      </div>
-    </div>
-	<script charset="windows-1251" src="js/hidePopup.js"></script>
-	<script charset="windows-1251" src="js/calendar.js"></script>
-	<script charset="windows-1251" src="js/timer.js"></script>
-	<script charset="windows-1251" src="js/request.js"></script>
-	<script charset="windows-1251" src="js/changeTaskList.js"></script>
-	<script charset="windows-1251" src="js/pageSetup.js"></script>
-  </body>
+			<div class="flexitem2">
+			  	<div class="timer">
+			  		<div class="time">
+			  			<span id="time">00:00:00</span>
+			  		</div>
+			  		<div class="timerButtonBlock">
+			  			<button class="timer-button" id="timer-button" play="1">Старт</button>
+			      		<button class="stop-button" id="stop-button">Стоп</button>
+			  		</div>
+			  	</div>
+			    <div class="taskArea">
+			    	<table id="taskTable">
+			    		<thead class="headTaskTable">
+			    			<tr>
+			    				<td>
+			    					№
+			    				</td>
+			    				<td>
+			    					Задача
+			    				</td>
+			    				<td>
+			    					Дата
+			    				</td>
+			    				<td>
+			    					Время
+			    				</td>       				
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+			    			
+			    		</tbody>
+			    	</table>
+			    </div>
+			    <div class="buttons">
+			    	<button class="flex-button" onclick="addTask()">Добавить запись</button>
+			    	<button class="flex-button" onclick="changeTask()">Редактировать запись</button>
+			    	<button class="flex-button" onclick="deleteTask()">Удалить запись</button>
+			    </div>
+		    </div>
+		</div>
+		<script charset="windows-1251" src="js/hidePopup.js"></script>
+		<script charset="windows-1251" src="js/calendar.js"></script>
+		<script charset="windows-1251" src="js/timer.js"></script>
+		<script charset="windows-1251" src="js/request.js"></script>
+		<script charset="windows-1251" src="js/changeTaskList.js"></script>
+		<script charset="windows-1251" src="js/pageSetup.js"></script>
+	</body>
 </html>

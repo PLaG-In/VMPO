@@ -52,6 +52,7 @@
     width: 100%;
     height: 20vh;
     display: flex;
+    background: #508694;
     flex-direction: row;
     align-items: center; /* Выравнивание текста по вертикали */
     justify-content: center; /* Выравнивание текста по горизонтали */
@@ -61,20 +62,19 @@
     border: 2px solid Black;
 }
 .one {
-    width: 60%;
-    background: #508694; /* Цвет фона */
+    width: 80%;
     padding-right: 10%;
     order: 1; /* Первый блок */
     flex: 1;
 }
 .two {
-    width: 20%;
-    background: #BB844C; /* Цвет фона */
+    width: 10%;
+
     order: 2; /* Второй блок */
 }
 .three {
-    width: 20%;
-    background: #929D79; /* Цвет фона */
+    width: 10%;
+
     order: 3; /* Третий блок */
 }
 .flex-conteiner{
@@ -94,6 +94,7 @@
 .flexitem2{
     width: 50%;
     height: 80vh;
+    background: #508694;
     padding: 0 1% 0 1%;
     display: flex;
     flex-direction: column;
@@ -106,7 +107,7 @@
 }
 .buttons{
     width: 100%;
-    height: 20%;
+    height: 10%;
     background: #508694;
     display: flex;    
     margin: 1%;
@@ -116,8 +117,9 @@
 
 .flex-button{
     width: 33%;
-    height: 50%;
+    height: 100%;
     padding: 1%;
+    margin: 1%;
 }
 
 input[type=text], input[type=password] {
@@ -145,8 +147,7 @@ button {
     height: 10%;
     background: #508694;
     display: flex;
-    flex-direction: row;
-
+    flex-direction: row;    
 }
 
 .time{
@@ -155,7 +156,9 @@ button {
     background: #4CAF50;   
     align-items: center; /* Выравнивание текста по вертикали */
     justify-content: center;  
-    display: flex;  
+    display: flex; 
+    padding: 0;
+    margin: 1px;
 }
 p{
     margin: 0;
@@ -286,6 +289,28 @@ hr {
 .headTaskTable{
     background: #fefefe;
 }
+
+.searchLine{
+    width: 100%;
+    display: flex;
+    height: 40px;
+    flex-direction: row;
+}
+
+.btnSearch{
+    width: 10%;
+    margin: 1%;
+    height: 100%;
+}
+
+#search{
+    height: 100%;
+    margin: 1%;
+    padding: 5px;
+    font-size: 20px;
+    font: monospace;
+}
+
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
