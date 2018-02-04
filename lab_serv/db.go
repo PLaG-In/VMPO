@@ -15,7 +15,7 @@ func GetAnswer(input string) (*sql.Rows, error) {
 	return rows, err
 }
 
-func Update(input string) error {
+func Update_DB(input string) error {
 	db, err := sql.Open("mysql", "root:root@/mydb")
 	checkErr(err)
 	stmt, err := db.Prepare(input)

@@ -31,7 +31,7 @@ func get_reg(login string, pass string) []byte {
 		return js
 	}
 
-	err = Update("INSERT users SET login=\"" + login +
+	err = Update_DB("INSERT users SET login=\"" + login +
 		"\",password=\"" + pass + "\"")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
