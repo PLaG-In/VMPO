@@ -4,7 +4,6 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 )
 
 func reg(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +31,7 @@ func get_reg(login string, pass string) []byte {
 		return js
 	}
 
-	err = Update("INSERT users SET idusers=\"" + strconv.Itoa(uid+1) + "\", login=\"" + login +
+	err = Update("INSERT users SET login=\"" + login +
 		"\",password=\"" + pass + "\"")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
