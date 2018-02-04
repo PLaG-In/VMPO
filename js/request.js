@@ -91,7 +91,7 @@ function signupRequest(){
 			return false;
 		}
 		pageSetup.hideLoginControls();
-		$('#userName').val() = userStr;
+		$('#userName').text(userStr);
 		var postData = { login : userStr, password : passwordStr };
 		$.ajax({
 			type: 'POST',
