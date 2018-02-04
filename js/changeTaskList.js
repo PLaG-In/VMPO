@@ -1,9 +1,10 @@
 var selectedTask = null;
+var currentTaskId = 0;
 var taskList = {
-	1: [1, "Умри", "18:00", "Высокий"],
-	2: [2, "Убей", "13:00", "Низкий"],
-	3: [3, "Живи", "04:20", "Высокий"],
-	4: [4, "Кричи", "00:00", "Высокий"],
+	1: [1, "Умри", "00:00:00", "Высокий"],
+	2: [2, "Убей", "00:00:00", "Низкий"],
+	3: [3, "Живи", "00:00:00", "Высокий"],
+	4: [4, "Кричи", "00:00:00", "Высокий"],
 };
 
 function addTask()
@@ -24,6 +25,38 @@ function addTask()
 	$('#taskTable > tbody:last-child').append(tr);
 }
 
+function isSelected() {
+	if (selectedTask != null)
+	{
+		return true;
+	}
+	return false;
+}
+
+function chooseTask()
+{
+	currentTaskId = selectedTask.context.cells[0].textContent;
+}
+
+function getTaskTime()
+{
+	return selectedTask.context.cells[2].textContent;
+}
+
+function putTime()
+{
+	if (isSelected())
+	{
+		selectedTask.context.cells[2].textContent = getTime();
+		if (taskList.currentTaskId !== undefined)
+		{
+			taskList[currentTaskId][2] = getTime();
+		}else{
+			alert("Вы удалили задачу, которую выполняли(не надо так)")
+		}
+	}
+}
+
 function deleteTask()
 {
 	if (selectedTask != null)
@@ -39,14 +72,15 @@ function changeTask()
 
 }
 
-function getTaskList() {
+function getTaskList()
+{
 	return taskList;
 }
 
 function getTask() {
 	var id = 0;
 	var task = "Беги";
-	var time = "20:00";
+	var time = "00:00";
 	var date = "Высокий";
 	return [id, task, date, time];
 }
@@ -55,12 +89,13 @@ $(document).ready(function()
 	{
 	    $('#taskTable').on('click', 'tbody tr', function ()
 	    {
-			if (selectedTask != $(this) && selectedTask != null)
-			{
-				selectedTask.removeClass('selectlines');
-			}
+				if (selectedTask != $(this) && selectedTask != null)
+				{
+					selectedTask.removeClass('selectlines');
+				}
 
-			selectedTask = $(this);
+				selectedTask = $(this);
 	    	$(this).toggleClass('selectlines');
+				getTime();
 	    });
 	});

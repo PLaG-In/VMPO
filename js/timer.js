@@ -9,7 +9,7 @@ function startTimer() {
 	var m = arr[1];
 	var s = arr[2];
 	if (s == 59) {
-		if (m == 59) 
+		if (m == 59)
 		{
 			h++;
 			m = 0;
@@ -25,11 +25,21 @@ function startTimer() {
 	setTimeout(startTimer, 1000);
  }
 
+ function getTime(){
+	 return document.getElementById("time").innerHTML;
+ }
+
 $("#timer-button").on("click", function() {
 	if($(this).attr("play") == 1) {
 		timerPaused = false;
-		$(this).attr("play", "0");	
-		startTimer();
+		$(this).attr("play", "0");
+		if (isSelected()) {
+				chooseTask();
+				document.getElementById("time").innerHTML = getTaskTime();
+				startTimer();
+		} else {
+			alert("Для запуска таймера выберите задачу!");
+		}
 	} else {
         return;
     }
@@ -38,7 +48,9 @@ $("#timer-button").on("click", function() {
 $("#stop-button").on("click", function() {
     if($("#timer-button").attr("play") == 0) {
         $("#timer-button").attr("play", "1");
-		timerPaused = true;
+				timerPaused = true;
+				putTime();
+				document.getElementById("time").innerHTML = "00:00:00";
     }
     else {
         return;
