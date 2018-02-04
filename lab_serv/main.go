@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 )
 
 func PrintToScreen(w http.ResponseWriter, js []byte) {
@@ -12,7 +13,6 @@ func PrintToScreen(w http.ResponseWriter, js []byte) {
 }
 
 func main() {
-	ExampleUnmarshal()
 	http.HandleFunc("/", checkState)
 	http.HandleFunc("/auth", auth)
 	http.HandleFunc("/reg", reg)
@@ -20,7 +20,6 @@ func main() {
 	http.HandleFunc("/get_task_des", get_task_des)
 	http.HandleFunc("/add_task", add_task)
 	http.HandleFunc("/remove_task", remove_task)
-	http.HandleFunc("/remove_task_all", remove_task_all)
 	http.HandleFunc("/edit_task", edit_task)
 	/*http.HandleFunc("/search", search)
 	http.HandleFunc("/sign_out", sign_out)
@@ -50,27 +49,24 @@ func checkState(w http.ResponseWriter, r *http.Request) {
 	PrintToScreen(w, js)
 }
 
-func ExampleUnmarshal() {
-	var jsonBlob = []byte(`[
-  		{"Code": "Platypus", "Secret": "Monotremata", ""},
-  		{"Name": "Quoll",    "Order": "Dasyuromorphia"}
-  	]`)
-	type Animal struct {
-		Name  string
-		Order string
-	}
-	var animals []Animal
-	err := json.Unmarshal(jsonBlob, &animals)
-	if err != nil {
-		fmt.Println("error:", err)
-	}
-	fmt.Printf("%+v", animals)
-	// Output:
-	// [{Name:Platypus Order:Monotremata} {Name:Quoll Order:Dasyuromorphia}]
-}
-
 func testing(w http.ResponseWriter, r *http.Request) {
+	failed_test_count := 0
+	total_test := 0
 	//Юнит-тесты 1 регистрируем нового пользователя
-	//answer := get_reg("unit", "test")
-	ExampleUnmarshal()
+	reg_data := AuthAndRegOK{}
+	answer := get_reg("unit", "test")
+	bytes := []byte(answer)
+	json.Unmarshal(bytes, &reg_data)
+	if reg_data.Code == 200 {
+		total_test = total_test + 1
+	} else {
+		total_test = total_test + 1
+		failed_test_count = failed_test_count + 1
+	}
+	//2 выходим из сети
+	//3 авторизация
+	//4
+	//5
+	//6 выходим из сети
+	w.Write([]byte("Total test - " + strconv.Itoa(total_test) + ". Failed test - " + strconv.Itoa(failed_test_count)))
 }

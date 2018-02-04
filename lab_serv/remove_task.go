@@ -3,12 +3,14 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
 func remove_task(w http.ResponseWriter, r *http.Request) {
 	key := r.FormValue("Secret")
 	id_task := r.FormValue("id_task")
+	fmt.Println(key)
 	if check_session(key) {
 		answer := task_delete(id_task)
 		PrintToScreen(w, answer)
@@ -24,7 +26,7 @@ func remove_task(w http.ResponseWriter, r *http.Request) {
 func task_delete(id_task string) []byte {
 	//Поиск в бд
 	//Необходим будет фикс после реализации бд
-	err := Update("")
+	err := Update("DELETE FROM mydb.task WHERE (task.idtask = " + id_task + ")")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
