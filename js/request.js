@@ -13,6 +13,8 @@ function loginRequest(){
 			alert('Please fill all fields');
 			return false;
 		}
+		pageSetup.hideLoginControls();
+		$('#userName').text(userStr);
 		
 		var postData = { login : userStr, password : passwordStr };
 		$.ajax({
@@ -39,18 +41,11 @@ function loginRequest(){
 							break;
 					}
 				}
-				else
+	 			else
 				{
-			/* 		pageSetup.showChatControls();
-					$('#apassword').val('');
-					chat.username = userStr;
-					var chatUpdateInterval = setInterval(chat.updateAll, 200);
-					$(window).on('unload', function(){
-						clearInterval(chatUpdateInterval);
-						return chat.exit();
-					}); */
+			 		pageSetup.showLoginControls();
 				}
-			},
+			}, 
 			error: function(){
 				console.log("[LOGIN] Unhandled server error");
 			}
@@ -62,7 +57,7 @@ function exitRequest(){
 	var url = SERVER_URL + '/sign_out';
 	var postData = { login : userStr, command : 'remove_visitor'};
 	console.log(postData);
-		
+	pageSetup.showLoginControls();	
 	return $.ajax({
 		async: false,
 		type: 'POST',
@@ -95,7 +90,8 @@ function signupRequest(){
 			alert('Пароли не совпадают');
 			return false;
 		}
-		
+		pageSetup.hideLoginControls();
+		$('#userName').val() = userStr;
 		var postData = { login : userStr, password : passwordStr };
 		$.ajax({
 			type: 'POST',
@@ -123,14 +119,7 @@ function signupRequest(){
 				}
 				else
 				{
-			/* 		pageSetup.showChatControls();
-					$('#apassword').val('');
-					chat.username = userStr;
-					var chatUpdateInterval = setInterval(chat.updateAll, 200);
-					$(window).on('unload', function(){
-						clearInterval(chatUpdateInterval);
-						return chat.exit();
-					}); */
+			 		pageSetup.showLoginControls();
 				}
 			},
 			error: function(){

@@ -7,7 +7,7 @@
 	   <title>Ежедневник</title>
   	</head>
   
-  <body>
+  <body onLoad="pageSetup.showLoginControls()">
     <div class="headSite">
       <div class="headSite-item">
         <div class="headSite-item one">
@@ -16,8 +16,8 @@
 		  <p id="loginResult">Тебя нет</p>
         </div>
         <div class="headSite-item two">
-          <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Регистрация</button>
-
+          <button id="signUpBtn" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Регистрация</button>
+		  <p id="userName">Тебя нет</p>
 			<div id="id01" class="modal" style="color: #000;">
 			  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">&times;</span>
 			  <form class="modal-content animate">
@@ -48,11 +48,13 @@
         </div>
 		
         <div class="headSite-item three">
-          <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Войти</button>
-
+          <button id="loginBtn" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Войти</button>
+		  
+		  <button id="exitBtn" onclick="exitRequest()" style="width:auto;">Выйти</button>
+		  
 			<div id="id02" class="modal" style="color: #000;">
 			  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
-			  <form class="modal-content animate" method="get" onsubmit="">
+			  <form class="modal-content animate" method="get">
 				<div class="container">
 				  <label><b>Имя пользователя</b></label>
 				  <input type="text" placeholder="Введите имя" id="alogin" required>
@@ -60,7 +62,7 @@
 				  <label><b>Пароль</b></label>
 				  <input type="password" placeholder="Введите пароль" id="apassword" required>
 					
-				  <button type="submit" onclick="loginRequest()">Войти</button>
+				  <button onclick="loginRequest()">Войти</button>
 				  <label>
 					<input type="checkbox" checked="checked"> Запомнить меня
 				  </label>
@@ -130,5 +132,6 @@
 	<script charset="windows-1251" src="js/timer.js"></script>
 	<script charset="windows-1251" src="js/request.js"></script>
 	<script charset="windows-1251" src="js/changeTaskList.js"></script>
+	<script charset="windows-1251" src="js/pageSetup.js"></script>
   </body>
 </html>

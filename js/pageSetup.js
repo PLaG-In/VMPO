@@ -1,13 +1,18 @@
+//pageSetup.showLoginControls();
 var pageSetup = new function(){
 	
-	this.hideChatControls = function(){
-		$('#chatContainer').hide();
-		$('#submitFormContainer').hide();
+	this.hideLoginControls = function(){
+		$('#loginBtn').hide();
+		$('#signUpBtn').hide();
+		$('#exitBtn').show();
+		$('#userName').show();
 	}
 	
-	this.showChatControls = function(){
+	this.showLoginControls = function(){
 		var showTime = 500;
-		$('#chatContainer').show(showTime);
-		$('#submitFormContainer').show(showTime);
+		$('#loginBtn').show();
+		$('#signUpBtn').show();
+		$('#exitBtn').hide();
+		$('#userName').hide();
 	}
 };
