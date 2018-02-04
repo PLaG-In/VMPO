@@ -3,7 +3,7 @@ package main
 type AuthAndRegOK struct {
 	Code       int
 	SecretCode string
-	username   int
+	User_id    int
 }
 
 type FailAnswer struct {
@@ -12,17 +12,16 @@ type FailAnswer struct {
 }
 
 type Task struct {
-	Id_task     int
-	Name        string
-	Description string
-	Date        string //????
-	Time        string
+	Id_task  int
+	Name     string
+	Time     string
+	Priority string
 }
 
 type TaskList struct {
 	Code   int
 	Length int
-	task   []Task
+	Task   []Task
 }
 
 type Success struct {

@@ -36,7 +36,26 @@ func get_login(login string, pass string) []byte {
 			checkErr(err)
 			return js
 		}
-		authAndRegOK := AuthAndRegOK{200, start_session(), username}
+		rows, err = GetAnswer("SELECT idusers FROM users WHERE login = \"" + login + "\"")
+		if err != nil {
+			authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
+			js, err := json.Marshal(authAndRegFailed)
+			checkErr(err)
+			return js
+		}
+		uid := 0
+		for rows.Next() {
+			var user_id int
+			err := rows.Scan(&user_id)
+			if err != nil {
+				authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
+				js, err := json.Marshal(authAndRegFailed)
+				checkErr(err)
+				return js
+			}
+			uid = user_id
+		}
+		authAndRegOK := AuthAndRegOK{200, start_session(), uid}
 		js, err := json.Marshal(authAndRegOK)
 		if err != nil {
 			authAndRegFailed := FailAnswer{500, "Серверная ошибка"}

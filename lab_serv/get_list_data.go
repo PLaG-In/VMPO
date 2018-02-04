@@ -3,14 +3,16 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
 func get_list_data(w http.ResponseWriter, r *http.Request) {
-	key := r.FormValue("Secret")
-	date := r.FormValue("Date")
+	key := r.FormValue("secret")
+	date := r.FormValue("date")
+	id_user := r.FormValue("id_user")
 	if check_session(key) {
-		answer := list_data(date)
+		answer := list_data(date, id_user)
 		PrintToScreen(w, answer)
 	} else {
 		authAndRegFailed := FailAnswer{403, "Неправильный ключ"}
@@ -21,33 +23,42 @@ func get_list_data(w http.ResponseWriter, r *http.Request) {
 }
 
 //Для юнит-тестов
-func list_data(date string) []byte {
+func list_data(date string, user string) []byte {
 	//Поиск в бд НЕ ГОТОВО
-	rows, err := GetAnswer("")
-	i := checkCount(rows)
+	rows, err := GetAnswer("SELECT * FROM mydb.task, mydb.users WHERE (users.idusers = \"" +
+		user + "\") AND (task.date =\"" + date + "\")")
+	var i = 0
+	for rows.Next() {
+		i = i + 1
+	}
+	rows.Close()
+
+	if i == 0 {
+		authAndRegFailed := FailAnswer{402, "Нет данных по дате"}
+		js, err := json.Marshal(authAndRegFailed)
+		checkErr(err)
+		return js
+	}
+
+	rows, err = GetAnswer("SELECT idtask, name, time, priority FROM mydb.task, mydb.users WHERE (users.idusers = \"" +
+		user + "\") AND (task.date =\"" + date + "\")")
 
 	var tasks []Task = make([]Task, i)
 	var counter = 0
 	for rows.Next() {
 		var uid int
 		var name string
-		var des string
-		var date string
 		var time_task string
-		err := rows.Scan(&uid, &name, &des, &date, &time_task)
+		var priority string
+		err := rows.Scan(&uid, &name, &time_task, &priority)
 
-		if err != nil {
-			authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
-			js, err := json.Marshal(authAndRegFailed)
-			checkErr(err)
-			return js
-		}
-
-		tasks[counter] = Task{uid, name, des, date, time_task}
+		checkErr(err)
+		tasks[counter] = Task{uid, name, time_task, priority}
 		counter = counter + 1
 	}
-	task_list := TaskList{200, i, tasks}
-	js, err := json.Marshal(task_list)
+	fmt.Println(i)
+	authAndRegOK := TaskList{200, i, tasks}
+	js, err := json.Marshal(authAndRegOK)
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)

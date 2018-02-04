@@ -12,6 +12,7 @@ func PrintToScreen(w http.ResponseWriter, js []byte) {
 }
 
 func main() {
+	ExampleUnmarshal()
 	http.HandleFunc("/", checkState)
 	http.HandleFunc("/auth", auth)
 	http.HandleFunc("/reg", reg)
@@ -49,6 +50,27 @@ func checkState(w http.ResponseWriter, r *http.Request) {
 	PrintToScreen(w, js)
 }
 
+func ExampleUnmarshal() {
+	var jsonBlob = []byte(`[
+  		{"Code": "Platypus", "Secret": "Monotremata", ""},
+  		{"Name": "Quoll",    "Order": "Dasyuromorphia"}
+  	]`)
+	type Animal struct {
+		Name  string
+		Order string
+	}
+	var animals []Animal
+	err := json.Unmarshal(jsonBlob, &animals)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	fmt.Printf("%+v", animals)
+	// Output:
+	// [{Name:Platypus Order:Monotremata} {Name:Quoll Order:Dasyuromorphia}]
+}
+
 func testing(w http.ResponseWriter, r *http.Request) {
-	//Юнит-тесты
+	//Юнит-тесты 1 регистрируем нового пользователя
+	//answer := get_reg("unit", "test")
+	ExampleUnmarshal()
 }
