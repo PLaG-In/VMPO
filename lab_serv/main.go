@@ -21,7 +21,7 @@ func main() {
 	http.HandleFunc("/add_task", add_task)
 	http.HandleFunc("/remove_task", remove_task)
 	http.HandleFunc("/edit_task", edit_task)
-	//http.HandleFunc("/search", search)
+	http.HandleFunc("/search", search)
 	http.HandleFunc("/sign_out", sign_out)
 	/*http.HandleFunc("/timer_stop", timer_stop)*/
 	http.HandleFunc("/testing", testing)
@@ -87,8 +87,24 @@ func testing(w http.ResponseWriter, r *http.Request) {
 	if auth_data.Code != 200 {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
-	//4
-	//5
+	//4 загружаем список с данными 4ого февраля
+	list_data_struct := TaskList{}
+	answer = list_data("04.02.2018", "5")
+	bytes = []byte(answer)
+	json.Unmarshal(bytes, &list_data_struct)
+	total_test = Inc_Test(total_test)
+	if list_data_struct.Code != 200 {
+		failed_test_count = Inc_Failed_Test(failed_test_count)
+	}
+	//5 просмотр описания по id задачи
+	des_data_struct := FailAnswer{}
+	answer = task_des("5", "5")
+	bytes = []byte(answer)
+	json.Unmarshal(bytes, &des_data_struct)
+	total_test = Inc_Test(total_test)
+	if des_data_struct.Code != 200 {
+		failed_test_count = Inc_Failed_Test(failed_test_count)
+	}
 	//6 выходим из сети
 	sign_out_data = Success{}
 	answer = sign_out_test(auth_data.SecretCode)

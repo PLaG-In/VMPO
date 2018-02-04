@@ -1,17 +1,18 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"net/http"
 )
 
-func get_list_data(w http.ResponseWriter, r *http.Request) {
+func search(w http.ResponseWriter, r *http.Request) {
 	key := r.FormValue("secret")
-	date := r.FormValue("date")
+	search := r.FormValue("search_string")
 	id_user := r.FormValue("id_user")
 	if check_session(key) {
-		answer := list_data(date, id_user)
+		answer := get_search(search, id_user)
 		PrintToScreen(w, answer)
 	} else {
 		authAndRegFailed := FailAnswer{403, "Неправильный ключ"}
@@ -22,10 +23,9 @@ func get_list_data(w http.ResponseWriter, r *http.Request) {
 }
 
 //Для юнит-тестов
-func list_data(date string, user string) []byte {
+func get_search(search string, user string) []byte {
 	//Поиск в бд НЕ ГОТОВО
-	rows, err := GetAnswer("SELECT * FROM mydb.task, mydb.users WHERE (users.idusers = \"" +
-		user + "\") AND (task.date =\"" + date + "\")")
+	rows, err := GetAnswer("SELECT * FROM mydb.users, mydb.task WHERE (task.id_user= " + user + ") and (task.des LIKE \"" + search + "\" + '%' ORDER BY LENGTH(\"" + search + "\") DESC LIMIT 1)")
 	var i = 0
 	for rows.Next() {
 		i = i + 1
@@ -39,8 +39,7 @@ func list_data(date string, user string) []byte {
 		return js
 	}
 
-	rows, err = GetAnswer("SELECT idtask, name, time, priority FROM mydb.task, mydb.users WHERE (users.idusers = \"" +
-		user + "\") AND (task.date =\"" + date + "\")")
+	rows, err = GetAnswer("SELECT idtask, name, time, priority FROM mydb.users, mydb.task WHERE (task.id_user= " + user + ") and (task.des LIKE \"" + search + "\" + '%' ORDER BY LENGTH(\"" + search + "\") DESC LIMIT 1)")
 
 	var tasks []Task = make([]Task, i)
 	var counter = 0
@@ -65,4 +64,12 @@ func list_data(date string, user string) []byte {
 		return js
 	}
 	return js
+}
+
+func checkCount(rows *sql.Rows) (count int) {
+	for rows.Next() {
+		err := rows.Scan(&count)
+		checkErr(err)
+	}
+	return count
 }
