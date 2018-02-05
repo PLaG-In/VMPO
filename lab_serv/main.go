@@ -20,7 +20,6 @@ func main() {
 	http.HandleFunc("/add_task", add_task)
 	http.HandleFunc("/remove_task", remove_task)
 	http.HandleFunc("/edit_task", edit_task)
-	http.HandleFunc("/search", search)
 	http.HandleFunc("/sign_out", sign_out)
 	http.HandleFunc("/timer_stop", timer_stop)
 	http.HandleFunc("/testing", testing)

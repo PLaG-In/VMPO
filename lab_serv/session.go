@@ -24,9 +24,11 @@ func exists(path string, id string) (bool, error) {
 	if err == nil {
 		return true, nil
 	}
-	if os.IsNotExist(err) {
+	if os.IsExist(err) {
+		fmt.Print("2")
 		return false, nil
 	} else {
+		fmt.Print("1")
 		var file, err = os.Open(path)
 		checkErr(err)
 		b, err := ioutil.ReadFile(path) // just pass the file name
