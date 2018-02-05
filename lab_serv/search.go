@@ -8,7 +8,7 @@ import (
 )
 
 func search(w http.ResponseWriter, r *http.Request) {
-	key := r.FormValue("secret")
+	key := r.FormValue("Secret")
 	search := r.FormValue("search_string")
 	id_user := r.FormValue("id_user")
 	if check_session(key) {
@@ -25,7 +25,7 @@ func search(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func get_search(search string, user string) []byte {
 	//Поиск в бд НЕ ГОТОВО
-	rows, err := GetAnswer("SELECT * FROM mydb.users, mydb.task WHERE (task.id_user= " + user + ") and (task.des LIKE \"" + search + "\" + '%' ORDER BY LENGTH(\"" + search + "\") DESC LIMIT 1)")
+	rows, err := GetAnswer("SELECT * FROM mydb.users, mydb.task WHERE (task.id_user= " + user + ") and (task.des RLIKE \"" + search + "\" ORDER BY LENGTH(\"" + search + "\"))")
 	var i = 0
 	for rows.Next() {
 		i = i + 1
