@@ -1,10 +1,7 @@
 var selectedTask = null;
 var currentTaskId = 0;
 var taskList = {
-	1: [1, "Умри", "00:00:00", "Высокий"],
-	2: [2, "Убей", "00:00:00", "Низкий"],
-	3: [3, "Живи", "00:00:00", "Высокий"],
-	4: [4, "Кричи", "00:00:00", "Высокий"],
+
 };
 
 function addTasks()
@@ -76,9 +73,9 @@ function changeTask()
 {
 	var id = selectedTask.context.cells[0].textContent;
 	taskList[id][1] = document.getElementById('eNameOfTask').value;
-	selectedTask.context.cells[1].textContent = taskList[id][1];
+	selectedTask.context.cells[1].textContent = document.getElementById('eNameOfTask').value;
 	taskList[id][3] = document.getElementById('ePriority').value;
-	selectedTask.context.cells[3].textContent = taskList[id][3];
+	selectedTask.context.cells[3].textContent = document.getElementById('ePriority').value;
 }
 
 function getTask()
@@ -91,9 +88,8 @@ function getTask()
 	}
 }
 
-function getTaskLista()
-{
-	return taskList;
+function getTaskLists(newTaskList){
+	taskList = newTaskList;
 }
 
 function createTask() {

@@ -41,16 +41,52 @@ function waitWhileEmpty(){
 
 function addTask(){
 	var url = SERVER_URL + '/add_task';
-	var task = [];
 	var date = getDate();
-	var postData = { secret : secret, date : date, id_user : userID };
+	var task = createTask();
+	if (task.priority == "Низкий"){
+		task.priority = 0;
+	} else {
+		task.priority = 1;
+	}
+	var postData = { Secret : secret, user_id : userID, name : task.task, date : date, time : task.time, priotity : task.priority, description : " " };
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: url,
 		data: postData,
 		dataType: 'json',
 		success: function(result){
-			currentTask = result.Task;
+			var tr = '<tr>';
+			task.forEach(function(item) {
+				tr += '<td>' + item + '</td>';
+			});
+			tr += '</tr>';
+			$('#taskTable > tbody:last-child').append(tr);
+		}
+	});
+}
+
+function editTask(){
+	var url = SERVER_URL + '/edit_task';
+	var date = getDate();
+	var task = createTask();
+	if (task.priority == "Низкий"){
+		task.priority = 0;
+	} else {
+		task.priority = 1;
+	}
+	var postData = { Secret : secret, user_id : userID, name : task.task, date : date, time : task.time, priotity : task.priority, description : " ", task_id: task.id };
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: postData,
+		dataType: 'json',
+		success: function(result){
+			var tr = '<tr>';
+			task.forEach(function(item) {
+				tr += '<td>' + item + '</td>';
+			});
+			tr += '</tr>';
+			$('#taskTable > tbody:last-child').append(tr);
 		}
 	});
 }

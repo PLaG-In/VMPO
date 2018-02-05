@@ -51,7 +51,7 @@
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
     }
-    
+
 	function getDate(){
 		if (currentDate < 10){
 			currentDate = "0" + currentDate;
@@ -62,7 +62,7 @@
 		var date = currentDate + "." + currentMonth + "." + currentYear;
 		return date;
 	}
-	
+
 
 	$(document).ready(function()
 	{
@@ -82,24 +82,30 @@
 			deselectTask();
 			getTaskList();
 			var taskList = waitWhileEmpty();
+      var newTaskList = [];
+      var task = [];
 			if (taskList === undefined) {
 				taskList = [];
 			}
 	    	for (i = 0; i < taskList.length; i++) {
 			  var tr = '<tr>';
+        var z = 0;
 			  for (item in taskList[i])
 			  {
-				if (taskList[i]["Priority"] == 0){
-					taskList[i]["Priority"] = "Низкий";
-				} else {
-					taskList[i]["Priority"] = "Высокий";
-				}
+				  if (taskList[i]["Priority"] == 0){
+					  taskList[i]["Priority"] = "Низкий";
+				  } else {
+					  taskList[i]["Priority"] = "Высокий";
+				  }
+          task[z] = taskList[i][item];
+          z++;
 				tr += '<td>' + taskList[i][item] + '</td>';
 			  }
+        newTaskList[i] = task;
 			  tr += '</tr>';
 			  $('#taskTable > tbody:last-child').append(tr);
 			}
-
+      getTaskLists(newTaskList);
 	    	$(this).toggleClass('click');
 	    });
 	});
