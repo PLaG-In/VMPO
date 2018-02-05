@@ -16,7 +16,7 @@ func edit_task(w http.ResponseWriter, r *http.Request) {
 	description := r.FormValue("description")
 	old_date := r.FormValue("old_date")
 	task_id := r.FormValue("task_id")
-	if check_session(key) {
+	if check_session(key, id) {
 		answer := task_update(id, name, description, data, time, priority, old_date, task_id)
 		PrintToScreen(w, answer)
 	} else {

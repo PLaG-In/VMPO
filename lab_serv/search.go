@@ -11,7 +11,7 @@ func search(w http.ResponseWriter, r *http.Request) {
 	key := r.FormValue("Secret")
 	search := r.FormValue("search_string")
 	id_user := r.FormValue("id_user")
-	if check_session(key) {
+	if check_session(key, id_user) {
 		answer := get_search(search, id_user)
 		PrintToScreen(w, answer)
 	} else {

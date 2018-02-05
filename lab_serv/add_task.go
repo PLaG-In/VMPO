@@ -14,7 +14,7 @@ func add_task(w http.ResponseWriter, r *http.Request) {
 	time := r.FormValue("time")
 	priority := r.FormValue("priority")
 	description := r.FormValue("description")
-	if check_session(key) {
+	if check_session(key, id) {
 		answer := append_data(id, name, description, data, time, priority)
 		PrintToScreen(w, answer)
 	} else {

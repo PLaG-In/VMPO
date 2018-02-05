@@ -10,7 +10,7 @@ func get_list_data(w http.ResponseWriter, r *http.Request) {
 	key := r.FormValue("secret")
 	date := r.FormValue("date")
 	id_user := r.FormValue("id_user")
-	if check_session(key) {
+	if check_session(key, id_user) {
 		answer := list_data(date, id_user)
 		PrintToScreen(w, answer)
 	} else {

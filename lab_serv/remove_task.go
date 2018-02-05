@@ -13,7 +13,7 @@ func remove_task(w http.ResponseWriter, r *http.Request) {
 	id_user := r.FormValue("id_user")
 	date := r.FormValue("date")
 	fmt.Println(key)
-	if check_session(key) {
+	if check_session(key, id_user) {
 		answer := task_delete(id_task, id_user, date)
 		PrintToScreen(w, answer)
 	} else {

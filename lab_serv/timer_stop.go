@@ -14,7 +14,7 @@ func timer_stop(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
 	time := r.FormValue("time")
 	fmt.Println(key)
-	if check_session(key) {
+	if check_session(key, id_user) {
 		answer := timer_unit(id_task, id_user, name, time)
 		PrintToScreen(w, answer)
 	} else {

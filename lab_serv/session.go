@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"time"
@@ -18,19 +19,32 @@ func secret() string {
 	return string(b)
 }
 
-func exists(path string) (bool, error) {
+func exists(path string, id string) (bool, error) {
 	_, err := os.Stat(path)
 	if err == nil {
 		return true, nil
 	}
 	if os.IsNotExist(err) {
 		return false, nil
+	} else {
+		var file, err = os.Open(path)
+		checkErr(err)
+		b, err := ioutil.ReadFile(path) // just pass the file name
+		if err != nil {
+			fmt.Print(err)
+		}
+		if string(b) == id {
+			defer file.Close()
+			return true, nil
+		}
+		defer file.Close()
+		return false, nil
 	}
 
 	return true, err
 }
 
-func createFile(path string) {
+func createFile(path string, id string) {
 	// detect if file exists
 	var _, err = os.Stat(path)
 
@@ -38,8 +52,7 @@ func createFile(path string) {
 	if os.IsNotExist(err) {
 		var file, err = os.Create(path)
 		checkErr(err)
-		current := time.Now()
-		fmt.Fprintf(file, current.String())
+		fmt.Fprintf(file, id)
 		defer file.Close()
 	}
 
@@ -60,22 +73,22 @@ func closeSession(path string) {
 	fmt.Println("==> delete file", path)
 }
 
-func check_session(key string) bool {
-	answer, err := exists("./Session/" + key + ".txt")
+func check_session(key string, id string) bool {
+	answer, err := exists("./Session/"+key+".txt", id)
 	checkErr(err)
 	return answer
 }
 
-func start_session() string {
+func start_session(id string) string {
 	rand.Seed(time.Now().UnixNano())
 	random := secret()
-	key, err := exists("./Session/" + random + ".txt")
+	key, err := exists("./Session/"+random+".txt", id)
 	checkErr(err)
 	for key {
-		key, err = exists("./Session/" + random + ".txt")
+		key, err = exists("./Session/"+random+".txt", id)
 		checkErr(err)
 		fmt.Println("123")
 	}
-	createFile("./Session/" + random + ".txt")
+	createFile("./Session/"+random+".txt", id)
 	return random
 }

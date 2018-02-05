@@ -4,6 +4,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 )
 
 func reg(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +60,7 @@ func get_reg(login string, pass string) []byte {
 		uid = user_id
 	}
 
-	authAndRegOK := AuthAndRegOK{200, start_session(), uid}
+	authAndRegOK := AuthAndRegOK{200, start_session(strconv.Itoa(uid)), uid}
 	js, err := json.Marshal(authAndRegOK)
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}

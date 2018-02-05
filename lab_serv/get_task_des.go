@@ -10,7 +10,7 @@ func get_task_des(w http.ResponseWriter, r *http.Request) {
 	key := r.FormValue("Secret")
 	task_id := r.FormValue("task_id")
 	user_id := r.FormValue("user_id")
-	if check_session(key) {
+	if check_session(key, user_id) {
 		answer := task_des(task_id, user_id)
 		PrintToScreen(w, answer)
 	} else {
