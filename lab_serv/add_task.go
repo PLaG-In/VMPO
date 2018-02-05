@@ -36,7 +36,14 @@ func append_data(user string, name string, des string, date string, time string,
 		checkErr(err)
 		return js
 	}
-	result := Success{200}
+	answer, err := GetAnswer("SELECT task.idtask from task WHERE (task.name=\"" + name + "\" and task.des=\"" + des + "\" and task.date=\"" + date + "\")")
+	var uid string
+	for answer.Next() {
+		//Error логин существует
+		err = answer.Scan(&uid)
+		checkErr(err)
+	}
+	result := AppendData{200, uid}
 	js, err := json.Marshal(result)
 	checkErr(err)
 	return js

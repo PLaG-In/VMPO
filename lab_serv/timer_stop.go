@@ -29,7 +29,7 @@ func timer_stop(w http.ResponseWriter, r *http.Request) {
 func timer_unit(id_task string, id_user string, name string, time string) []byte {
 	//Поиск в бд
 	//Необходим будет фикс после реализации бд
-	err := Update_DB("")
+	err := Update_DB("UPDATE task SET task.time=\"" + time + "\" where (task.idtask = " + id_task + " AND task.id_user = " + id_user + ")")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)

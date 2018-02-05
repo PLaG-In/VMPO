@@ -27,3 +27,8 @@ type TaskList struct {
 type Success struct {
 	Code int
 }
+
+type AppendData struct {
+	Code    int
+	Id_task string
+}

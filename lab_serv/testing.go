@@ -44,8 +44,6 @@ func testing(w http.ResponseWriter, r *http.Request) {
 	if auth_data.Code == 200 {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
-	//5 получение описания по
-
 	//Юнит-тесты 1 регистрируем нового пользователя
 	reg_data = AuthAndRegOK{}
 	answer = get_reg("unit", "test")
@@ -53,6 +51,15 @@ func testing(w http.ResponseWriter, r *http.Request) {
 	json.Unmarshal(bytes, &reg_data)
 	total_test = Inc_Test(total_test)
 	if reg_data.Code != 200 {
+		failed_test_count = Inc_Failed_Test(failed_test_count)
+	}
+	//5 получение описания по задаче с другим id
+	des_data_struct := FailAnswer{}
+	answer = task_des(strconv.Itoa(reg_data.User_id), "1")
+	bytes = []byte(answer)
+	json.Unmarshal(bytes, &des_data_struct)
+	total_test = Inc_Test(total_test)
+	if des_data_struct.Code == 200 {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
 	//7 получение данных по другому id
@@ -92,7 +99,7 @@ func testing(w http.ResponseWriter, r *http.Request) {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
 	//5 просмотр описания по id задачи
-	des_data_struct := FailAnswer{}
+	des_data_struct = FailAnswer{}
 	answer = task_des("5", "5")
 	bytes = []byte(answer)
 	json.Unmarshal(bytes, &des_data_struct)
@@ -101,7 +108,7 @@ func testing(w http.ResponseWriter, r *http.Request) {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
 	//6 добавление записи
-	add_data := Success{}
+	add_data := AppendData{}
 	answer = append_data("5", "test", "test des", "05.02.2018", "22", "0")
 	bytes = []byte(answer)
 	json.Unmarshal(bytes, &add_data)
@@ -110,8 +117,24 @@ func testing(w http.ResponseWriter, r *http.Request) {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
 	//7 редактирование записи
-	//8 удаление записи
 	//9 стоп таймер
+	timer_data := Success{}
+	answer = timer_unit(add_data.Id_task, strconv.Itoa(auth_data.User_id), "test", "00:33:22")
+	bytes = []byte(answer)
+	json.Unmarshal(bytes, &timer_data)
+	total_test = Inc_Test(total_test)
+	if timer_data.Code != 200 {
+		failed_test_count = Inc_Failed_Test(failed_test_count)
+	}
+	//8 удаление записи
+	delete_data := Success{}
+	answer = task_delete(add_data.Id_task, strconv.Itoa(auth_data.User_id), "05.02.2018")
+	bytes = []byte(answer)
+	json.Unmarshal(bytes, &delete_data)
+	total_test = Inc_Test(total_test)
+	if delete_data.Code != 200 {
+		failed_test_count = Inc_Failed_Test(failed_test_count)
+	}
 	//10 выходим из сети
 	sign_out_data = Success{}
 	answer = sign_out_test(auth_data.SecretCode, strconv.Itoa(auth_data.User_id))
