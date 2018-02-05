@@ -39,6 +39,22 @@ function waitWhileEmpty(){
 	return currentTask;
 }
 
+function addTask(){
+	var url = SERVER_URL + '/add_task';
+	var task = [];
+	var date = getDate();
+	var postData = { secret : secret, date : date, id_user : userID };
+	$.ajax({
+		type: 'GET',
+		url: url,
+		data: postData,
+		dataType: 'json',
+		success: function(result){
+			currentTask = result.Task;
+		}
+	});
+}
+
 function getTaskList(){
 	var url = SERVER_URL + '/get_list_data';
 	var task = [];
@@ -71,6 +87,8 @@ function exitRequest(){
 		}
 	});
 }
+
+
 
 function signupRequest(){
 		var url = SERVER_URL + '/reg';

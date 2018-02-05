@@ -7,7 +7,7 @@ var taskList = {
 	4: [4, "Кричи", "00:00:00", "Высокий"],
 };
 
-function addTask()
+function addTasks()
 {
 	var task = createTask();
 	var lastKey = 0;
