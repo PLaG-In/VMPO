@@ -106,6 +106,14 @@ func testing(w http.ResponseWriter, r *http.Request) {
 		failed_test_count = Inc_Failed_Test(failed_test_count)
 	}
 	//6 добавление записи
+	add_data := Success{}
+	answer = append_data("5", "test", "test des", "05.02.2018", "22", "0")
+	bytes = []byte(answer)
+	json.Unmarshal(bytes, &add_data)
+	total_test = Inc_Test(total_test)
+	if add_data.Code != 200 {
+		failed_test_count = Inc_Failed_Test(failed_test_count)
+	}
 	//7 редактирование записи
 	//8 удаление записи
 	//9 старт таймер
