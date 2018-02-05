@@ -43,12 +43,12 @@ function addTask(){
 	var url = SERVER_URL + '/add_task';
 	var date = getDate();
 	var task = createTask();
-	if (task.priority == "Низкий"){
-		task.priority = 0;
+	if (task[3] == "Низкий"){
+		task[3] = 0;
 	} else {
-		task.priority = 1;
+		task[3] = 1;
 	}
-	var postData = { Secret : secret, user_id : userID, name : task.task, date : date, time : task.time, priotity : task.priority, description : " " };
+	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priotity : task[3], description : " " };
 	$.ajax({
 		type: 'POST',
 		url: url,
@@ -69,12 +69,12 @@ function editTask(){
 	var url = SERVER_URL + '/edit_task';
 	var date = getDate();
 	var task = createTask();
-	if (task.priority == "Низкий"){
-		task.priority = 0;
+	if (task[3] == "Низкий"){
+		task[3] = 0;
 	} else {
-		task.priority = 1;
+		task[3] = 1;
 	}
-	var postData = { Secret : secret, user_id : userID, name : task.task, date : date, time : task.time, priotity : task.priority, description : " ", task_id: task.id };
+	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priotity : task[3], description : " ", task_id: task[0] };
 	$.ajax({
 		type: 'POST',
 		url: url,

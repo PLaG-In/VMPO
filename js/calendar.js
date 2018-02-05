@@ -1,6 +1,6 @@
-    var currentMonth = 0;
+    var currentMonth = "0";
     var currentYear = 2018;
-	var currentDate = 0;
+	var currentDate = "0";
 	function Calendar2(id, year, month) {
     	var Dlast = new Date(year,month+1,0).getDate(),
     	    D = new Date(year,month,Dlast),
@@ -53,10 +53,10 @@
     }
 
 	function getDate(){
-		if (currentDate < 10){
+		if (Number(currentDate) < 10 && currentDate[0] != 0){
 			currentDate = "0" + currentDate;
 		}
-		if (currentMonth < 10){
+		if (Number(currentMonth) < 10 && currentMonth[0] != 0){
 			currentMonth = "0" + currentMonth
 		}
 		var date = currentDate + "." + currentMonth + "." + currentYear;
@@ -89,7 +89,7 @@
 			}
 	    	for (i = 0; i < taskList.length; i++) {
 			  var tr = '<tr>';
-        var z = 0;
+			  var z = 0;
 			  for (item in taskList[i])
 			  {
 				  if (taskList[i]["Priority"] == 0){

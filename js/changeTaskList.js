@@ -72,9 +72,9 @@ function deleteTask()
 function changeTask()
 {
 	var id = selectedTask.context.cells[0].textContent;
-	taskList[id][1] = document.getElementById('eNameOfTask').value;
+	//taskList[id][1] = document.getElementById('eNameOfTask').value;
 	selectedTask.context.cells[1].textContent = document.getElementById('eNameOfTask').value;
-	taskList[id][3] = document.getElementById('ePriority').value;
+	//taskList[id][3] = document.getElementById('ePriority').value;
 	selectedTask.context.cells[3].textContent = document.getElementById('ePriority').value;
 }
 
