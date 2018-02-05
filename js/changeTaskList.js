@@ -91,7 +91,7 @@ function getTask()
 	}
 }
 
-function getTaskList()
+function getTaskLista()
 {
 	return taskList;
 }

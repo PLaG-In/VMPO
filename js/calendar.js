@@ -1,4 +1,7 @@
-    function Calendar2(id, year, month) {
+    var currentMonth = 0;
+    var currentYear = 2018;
+	var currentDate = 0;
+	function Calendar2(id, year, month) {
     	var Dlast = new Date(year,month+1,0).getDate(),
     	    D = new Date(year,month,Dlast),
     	    DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
@@ -48,7 +51,18 @@
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
     }
-
+    
+	function getDate(){
+		if (currentDate < 10){
+			currentDate = "0" + currentDate;
+		}
+		if (currentMonth < 10){
+			currentMonth = "0" + currentMonth
+		}
+		var date = currentDate + "." + currentMonth + "." + currentYear;
+		return date;
+	}
+	
 
 	$(document).ready(function()
 	{
@@ -61,15 +75,27 @@
         $('.cell').filter(function(){
           return $(this)[0].innerText == index;
         }).removeClass('click');
-
+			currentDate = $(this)[0].innerText;
+			currentMonth = Number($('table thead tr td')[1].dataset.month) + 1;
+			currentYear = $('table thead tr td')[1].dataset.year;
 			$("#taskTable tbody tr").detach();
-      deselectTask();
-			var taskList = getTaskList();
-	    	for (property in taskList) {
+			deselectTask();
+			getTaskList();
+			var taskList = waitWhileEmpty();
+			if (taskList === undefined) {
+				taskList = [];
+			}
+	    	for (i = 0; i < taskList.length; i++) {
 			  var tr = '<tr>';
-			  taskList[property].forEach(function(item) {
-				tr += '<td>' + item + '</td>';
-			  });
+			  for (item in taskList[i])
+			  {
+				if (taskList[i]["Priority"] == 0){
+					taskList[i]["Priority"] = "Низкий";
+				} else {
+					taskList[i]["Priority"] = "Высокий";
+				}
+				tr += '<td>' + taskList[i][item] + '</td>';
+			  }
 			  tr += '</tr>';
 			  $('#taskTable > tbody:last-child').append(tr);
 			}

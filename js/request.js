@@ -1,6 +1,8 @@
 var SERVER_URL = "http://localhost:8080";
 var secret = "";
 var userID = 0;
+var currentTask = [];
+
 function loginRequest(){
 		var url = SERVER_URL + '/auth';
 
@@ -21,6 +23,8 @@ function loginRequest(){
 			data: postData,
 			dataType: 'json',
 			success: function(result){
+				secret = result.SecretCode;
+				userID = result.User_id;
 				alert('Залогинился');
 			},
 			error: function(){
@@ -31,22 +35,24 @@ function loginRequest(){
 	return true;
 }
 
+function waitWhileEmpty(){
+	return currentTask;
+}
+
 function getTaskList(){
 	var url = SERVER_URL + '/get_list_data';
-	// var secret =
-	// var date =
-	// var id =
-	var postData = {/* secret : secret, date : date, id_user : id*/ };
+	var task = [];
+	var date = getDate();
+	var postData = { secret : secret, date : date, id_user : userID };
 	$.ajax({
 		type: 'GET',
 		url: url,
 		data: postData,
 		dataType: 'json',
 		success: function(result){
-			alert('ты получил список');
+			currentTask = result.Task;
 		}
 	});
-	return true;
 }
 
 function exitRequest(){
@@ -92,8 +98,8 @@ function signupRequest(){
 			data: postData,
 			dataType: 'json',
 			success: function(result){
-				secret = $(result).filter("SecretCode");
-				userID = $(result).filter("User_ID");
+				secret = result.SecretCode;
+				userID = result.User_id;
 				alert('Зарегистрировался');
 			},
 			error: function(){
