@@ -43,12 +43,13 @@ function addTask(){
 	var url = SERVER_URL + '/add_task';
 	var date = getDate();
 	var task = createTask();
+	var priority = "0";
 	if (task[3] == "Низкий"){
-		task[3] = 0;
+		priority = "0";
 	} else {
-		task[3] = 1;
+		priority = "1";
 	}
-	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priotity : task[3], description : " " };
+	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priority : priority, description : "0" };
 	$.ajax({
 		type: 'POST',
 		url: url,
@@ -61,6 +62,23 @@ function addTask(){
 			});
 			tr += '</tr>';
 			$('#taskTable > tbody:last-child').append(tr);
+			getList();
+		}
+	});
+}
+
+function deleteTaskReq(){
+	var url = SERVER_URL + '/remove_task';
+	var date = getDate();
+	var id_task = getTaskId();
+	var postData = { Secret : secret, id_task: id_task, id_user : userID, date : date };
+		$.ajax({
+		type: 'POST',
+		url: url,
+		data: postData,
+		dataType: 'json',
+		success: function(result){
+			alert("Удалено");
 		}
 	});
 }
@@ -69,12 +87,13 @@ function editTask(){
 	var url = SERVER_URL + '/edit_task';
 	var date = getDate();
 	var task = createTask();
+	var priority = "0";
 	if (task[3] == "Низкий"){
-		task[3] = 0;
+		priority = "0";
 	} else {
-		task[3] = 1;
+		priority = "1";
 	}
-	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priotity : task[3], description : " ", task_id: task[0] };
+	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priority : priority, description : " ", task_id: task[0] };
 	$.ajax({
 		type: 'POST',
 		url: url,
@@ -108,10 +127,12 @@ function getTaskList(){
 }
 
 function exitRequest(){
+	
 	var url = SERVER_URL + '/sign_out';
 	var postData = { login : $('#userName').val(), command : 'sign_out'};
 	console.log(postData);
 	pageSetup.showLoginControls();
+	window.location.reload();
 	return $.ajax({
 		async: false,
 		type: 'POST',

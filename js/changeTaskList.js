@@ -32,7 +32,7 @@ function isSelected() {
 
 function chooseTask()
 {
-	currentTaskId = selectedTask.context.cells[0].textContent;
+	currentTaskId = selectedTask.index();
 }
 
 function getTaskTime()
@@ -44,7 +44,7 @@ function putTime()
 {
 	if (isSelected())
 	{
-		$('#taskTable tbody tr')[currentTaskId - 1].cells[2].textContent = getTime();
+		$('#taskTable tbody tr')[currentTaskId].cells[2].textContent = getTime();
 		if (taskList[currentTaskId] !== undefined)
 		{
 			taskList[currentTaskId][2] = getTime();
@@ -58,11 +58,16 @@ function deselectTask(){
 	selectedTask = null;
 }
 
+function getTaskId(){
+	return selectedTask.context.cells[0].textContent;
+}
+
 function deleteTask()
 {
 	if (selectedTask != null)
 	{
-		var id = selectedTask.context.cells[0].textContent;
+		deleteTaskReq();
+		var id = getTaskId();
 		delete taskList[id];
 		selectedTask.remove();
 		deselectTask();

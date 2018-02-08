@@ -63,9 +63,47 @@
 		return date;
 	}
 
-
+	function getList(){	
+	
+		setTimeout(2000);
+		deselectTask();
+		getTaskList();
+		var taskList = waitWhileEmpty();
+		var newTaskList = [];
+		var task = [];
+			if (taskList === undefined) {
+				taskList = [];
+			}
+			 $("#taskTable tbody tr").detach();
+	    	for (i = 0; i < taskList.length; i++) {
+			  var tr = '<tr>';
+			  var z = 0;
+			  for (item in taskList[i])
+			  {
+				  if (item == "Priority") {
+					  if (taskList[i]["Priority"] == "0"){
+					  taskList[i]["Priority"] = "Низкий";
+						} else {
+					  taskList[i]["Priority"] = "Высокий";
+					}
+				  }
+				  
+          task[z] = taskList[i][item];
+          z++;
+				tr += '<td>' + taskList[i][item] + '</td>';
+			  }
+		newTaskList[i] = task;
+			  tr += '</tr>';
+			  $('#taskTable > tbody:last-child').append(tr);
+			}
+	 
+      getTaskLists(newTaskList);
+	
+	}
+	
 	$(document).ready(function()
 	{
+		
 	    $('table').on('click', '.cell', function ()
 	    {
         var index = -1;
@@ -75,37 +113,12 @@
         $('.cell').filter(function(){
           return $(this)[0].innerText == index;
         }).removeClass('click');
-			currentDate = $(this)[0].innerText;
-			currentMonth = Number($('table thead tr td')[1].dataset.month) + 1;
-			currentYear = $('table thead tr td')[1].dataset.year;
-			$("#taskTable tbody tr").detach();
-			deselectTask();
-			getTaskList();
-			var taskList = waitWhileEmpty();
-      var newTaskList = [];
-      var task = [];
-			if (taskList === undefined) {
-				taskList = [];
-			}
-	    	for (i = 0; i < taskList.length; i++) {
-			  var tr = '<tr>';
-			  var z = 0;
-			  for (item in taskList[i])
-			  {
-				  if (taskList[i]["Priority"] == 0){
-					  taskList[i]["Priority"] = "Низкий";
-				  } else {
-					  taskList[i]["Priority"] = "Высокий";
-				  }
-          task[z] = taskList[i][item];
-          z++;
-				tr += '<td>' + taskList[i][item] + '</td>';
-			  }
-        newTaskList[i] = task;
-			  tr += '</tr>';
-			  $('#taskTable > tbody:last-child').append(tr);
-			}
-      getTaskLists(newTaskList);
-	    	$(this).toggleClass('click');
+		currentDate = $(this)[0].innerText;
+		currentMonth = Number($('table thead tr td')[1].dataset.month) + 1;
+		currentYear = $('table thead tr td')[1].dataset.year;
+		$("#taskTable tbody tr").detach();
+		getList();
+			
+	    $(this).toggleClass('click');
 	    });
 	});
