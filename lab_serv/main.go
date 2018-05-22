@@ -23,14 +23,13 @@ func main() {
 	http.HandleFunc("/sign_out", sign_out)
 	http.HandleFunc("/timer_stop", timer_stop)
 	http.HandleFunc("/testing", testing)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8090", nil)
 }
 
 //Ошибки
 func checkErr(err error) {
 	if err != nil {
 		fmt.Println(err.Error())
-		//log.Fatal(err.Error())
 	}
 }
 

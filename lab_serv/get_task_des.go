@@ -24,7 +24,7 @@ func get_task_des(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func task_des(id string, user string) []byte {
 	//Поиск в бд
-	rows, err := GetAnswer("SELECT des FROM mydb.task WHERE (task.idtask = " + id + ")  AND (task.id_user = " + user + ") ")
+	rows, err := SelectDB("SELECT des FROM mydb.task WHERE (task.idtask = " + id + ")  AND (task.id_user = " + user + ") ")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)

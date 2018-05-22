@@ -30,7 +30,7 @@ func edit_task(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func task_update(user string, name string, des string, date string, time string, priority string, old_date string, task_id string) []byte {
 	//Поиск в бд
-	err := Update_DB("UPDATE mydb.task SET task.name = \"" + name + "\", task.des = " + des + ", task.time = \"" + time + "\", task.date = \"" + date + "\", task.priority = \"" + priority + "\" WHERE (task.id_user = " + user + ") AND (task.date = \"" + old_date + "\") AND (task.id_task = \"" + task_id + "\")")
+	err := UpdateDB("UPDATE mydb.task SET task.name = \"" + name + "\", task.des = " + des + ", task.time = \"" + time + "\", task.date = \"" + date + "\", task.priority = \"" + priority + "\" WHERE (task.id_user = " + user + ") AND (task.date = \"" + old_date + "\") AND (task.id_task = \"" + task_id + "\")")
 	task_delete(task_id, user, old_date)
 
 	if err != nil {

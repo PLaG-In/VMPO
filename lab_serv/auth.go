@@ -21,7 +21,7 @@ func auth(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func get_login(login string, pass string) []byte {
 	//Поиск в бд
-	rows, err := GetAnswer("SELECT idusers FROM users WHERE login=\"" + login + "\" AND password=\"" + pass + "\"")
+	rows, err := SelectDB("SELECT idusers FROM users WHERE login='" + login + "' AND password='" + pass + "'")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
@@ -37,7 +37,7 @@ func get_login(login string, pass string) []byte {
 			checkErr(err)
 			return js
 		}
-		rows, err = GetAnswer("SELECT idusers FROM users WHERE login = \"" + login + "\"")
+		rows, err = SelectDB("SELECT idusers FROM users WHERE login = '" + login + "'")
 		if err != nil {
 			authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 			js, err := json.Marshal(authAndRegFailed)

@@ -1,0 +1,276 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="John Doe">
+    <meta name="description" content="">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>Ежедневник</title>
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+    <!-- Plugin-CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- Main-Stylesheets -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target="#primary-menu">
+
+    <div class="preloader">
+        <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+    </div>
+    <!--Mainmenu-area-->
+    <div class="mainmenu-area" data-spy="affix" data-offset-top="100">
+        <div class="container">
+            <!--Logo-->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#primary-menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand logo">
+                    <h2>Ежедневник</h2>
+                </a>
+            </div>
+            <!--Logo/-->
+            <nav class="collapse navbar-collapse" id="primary-menu">
+                <ul class="nav navbar-nav navbar-right">
+					<p id="userName">Тебя нет</p>
+					<button id="loginBtn" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Войти</button>
+					<button id="signUpBtn" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Регистрация</button>
+					<button id="exitBtn" onclick="exitRequest()" style="width:auto;">Выйти</button>
+
+                   <!-- <li class="active"><a href="#home-page">Войти</a></li>
+                    <li><a href="#service-page">Регистрация</a></li> /-->
+                </ul>
+            </nav>
+			<div class="headSite">
+				<div class="headSite-item">
+					<div class="headSite-item two">
+						<div id="id01" class="modal" style="color: #000;">
+							<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">&times;</span>
+							<form class="modal-content animate" onsubmit="document.getElementById('id01').style.display='none'; return false;">
+								<div class="container">
+									<h1>Регистрация</h1>
+									<p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
+									<hr>
+									<label><b>Email</b></label>
+									<input type="text" placeholder="Введите Email" id="slogin" required>
+
+									<label><b>Пароль</b></label>
+									<input type="password" placeholder="Введите пароль" id="spassword" required>
+
+									<label><b>Повторите пароль</b></label>
+									<input type="password" placeholder="Повторите пароль" id="repassword" required>
+
+									<label>
+										<input type="checkbox" checked="checked"> Запомнить меня
+									</label>
+								</div>
+
+								<div class="container" style="background-color:#f1f1f1">
+									<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtnr">Отмена</button>
+									<button type="submit" class="signupbtn" onclick="signupRequest()">Регистрация</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="headSite-item three">
+						<div id="id02" class="modal" style="color: #000;">
+							<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Закрыть">&times;</span>
+							<form class="modal-content animate" method="get" onsubmit="document.getElementById('id02').style.display='none'; return false;">
+								<div class="container">
+									<label><b>Имя пользователя</b></label>
+									<input type="text" placeholder="Введите имя" id="alogin" required>
+
+									<label><b>Пароль</b></label>
+									<input type="password" placeholder="Введите пароль" id="apassword" required>
+
+									<button onclick="loginRequest()">Войти</button>
+									<label>
+										<input type="checkbox" checked="checked"> Запомнить меня
+									</label>
+								</div>
+								<div class="container" style="background-color:#f1f1f1">
+									<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Отмена</button>
+									<span class="psw"><a href="#">Забыли пароль?</a></span>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <!--Mainmenu-area/-->
+	
+	<!--Header-area-->
+    <header class="header-area overlay full-height relative v-center" id="home-page">
+        <div class="absolute anlge-bg"></div>
+        <div class="container">
+            <div class="row v-center">
+                <div class="col-xs-12 col-md-7 header-text">
+                    <h2>Ежедневник</h2>
+                    <p>Запиши свои задачки, чтобы не забыть и выполни их вовремя, чтобы не забыть.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--Header-area/-->
+	
+	<div class="flex-conteiner">
+		<div class="flexitem1">
+			    <table id="calendar2">
+			    	<thead>
+			        	<tr>
+			        		<td>
+			        			‹
+			        		</td>
+			        		<td colspan="5"></td>
+			        		<td>
+			        			›
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>Пн</td>
+			        		<td>Вт</td>
+			        		<td>Ср</td>
+			        		<td>Чт</td>
+			        		<td>Пт</td>
+			        		<td>Сб</td>
+			        		<td>Вс</td>
+			        	</tr>
+			        </thead>
+			      	<tbody></tbody>
+			    </table>
+		  	</div>
+
+			<div class="flexitem2">
+			  	<div class="timer">
+			  		<div class="time">
+			  			<span id="time">00:00:00</span>
+			  		</div>
+			  		<div class="timerButtonBlock">
+			  			<button class="timer-button" id="timer-button" play="1">Старт</button>
+			      		<button class="stop-button" id="stop-button">Стоп</button>
+			  		</div>
+			  	</div>
+			    <div class="taskArea">
+			    	<table id="taskTable">
+			    		<thead class="headTaskTable">
+			    			<tr>
+			    				<td>
+			    					№
+			    				</td>
+			    				<td>
+			    					Задача
+			    				</td>
+			    				<td>
+			    					Время
+			    				</td>
+			    				<td>
+			    					Приоритет
+			    				</td>
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+
+			    		</tbody>
+			    	</table>
+			    </div>
+			    <div class="buttons">
+			    	<button class="flex-button" onclick="document.getElementById('id03').style.display='block'">Добавить запись</button>
+			    	<div id="id03" class="modal" style="color: #000;">
+						<span onclick="document.getElementById('id03').style.display='none'" class="close" title="Закрыть">&times;</span>
+						<form class="modal-content animate" method="get" onsubmit="document.getElementById('id03').style.display='none'; return false;">
+							<div class="container">
+								<h1>Добавление</h1>
+								<label><b>Задача</b></label>
+								<input type="text" placeholder="Ввод" id="aNameOfTask" required>
+
+								<label><b>Описание</b></label>
+								<textarea name="aDescriptionOfTask"></textarea>
+								<label><b>Приоритет</b></label>
+								<select id="aPriority" required>
+									<option selected disabled>Выберите приоритет</option>
+									<option>Высокий</option>
+									<option>Низкий</option>
+								</select>
+							 	<button onclick="addTask()">Добавить</button>
+							</div>
+					 	</form>
+					</div>
+
+			    	<button class="flex-button" onclick="document.getElementById('id04').style.display='block'; getTask();">Редактировать запись</button>
+			    	<div id="id04" class="modal" style="color: #000;">
+						<span onclick="document.getElementById('id04').style.display='none';" class="close" title="Закрыть">&times;</span>
+						<form class="modal-content animate" method="get" onsubmit="document.getElementById('id04').style.display='none'; return false;">
+							<div class="container">
+								<h1>Редактирование</h1>
+								<label><b>Задача</b></label>
+								<input type="text" placeholder="Ввод" id="eNameOfTask" required>
+
+								<label><b>Описание</b></label>
+								<textarea name="eDescriptionOfTask"></textarea>
+								<label><b>Приоритет</b></label>
+								<select id="ePriority" required>
+									<option selected disabled>Выберите приоритет</option>
+									<option>Высокий</option>
+									<option>Низкий</option>
+								</select>
+							 	<button onclick="changeTask()">Изменить</button>
+							</div>
+					 	</form>
+					</div>
+
+			    	<button class="flex-button" onclick="deleteTask()">Удалить запись</button>
+
+			    </div>
+		    </div>
+	</div>			
+	<script src="js/hidePopup.js"></script>
+	<script src="js/calendar.js"></script>
+	<script src="js/timer.js"></script>
+	<script src="js/request.js"></script>
+	<script src="js/changeTaskList.js"></script>
+	<script src="js/pageSetup.js"></script>	
+    <!--Vendor-JS-->
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <!--Plugin-JS-->
+    <script src="js/new/owl.carousel.min.js"></script>
+    <script src="js/new/contact-form.js"></script>
+    <script src="js/new/jquery.parallax-1.1.3.js"></script>
+    <script src="js/new/scrollUp.min.js"></script>
+    <script src="js/new/magnific-popup.min.js"></script>
+    <script src="js/new/wow.min.js"></script>
+    <!--Main-active-JS-->
+    <script src="js/new/main.js"></script>
+</body>
+
+</html>

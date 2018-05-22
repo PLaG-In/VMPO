@@ -29,14 +29,14 @@ func add_task(w http.ResponseWriter, r *http.Request) {
 func append_data(user string, name string, des string, date string, time string, priority string) []byte {
 	//Поиск в бд
 	//fmt.Println("INSERT INTO mydb.task (id_user, name, des, date, time, priority) VALUES (" + user + ", \"" + name + "\", \"" + des + "\", \"" + date + "\", \"" + time + "\", \"" + priority + "\");")
-	err := Update_DB("INSERT INTO mydb.task (id_user, name, des, date, time, priority) VALUES (\"" + user + "\", \"" + name + "\", \"" + des + "\", \"" + date + "\", \"" + time + "\", \"" + priority + "\");")
+	err := UpdateDB("INSERT INTO mydb.task (id_user, name, des, date, time, priority) VALUES (\"" + user + "\", \"" + name + "\", \"" + des + "\", \"" + date + "\", \"" + time + "\", \"" + priority + "\");")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		return js
 	}
-	answer, err := GetAnswer("SELECT task.idtask from task WHERE (task.name=\"" + name + "\" and task.des=\"" + des + "\" and task.date=\"" + date + "\")")
+	answer, err := SelectDB("SELECT task.idtask from task WHERE (task.name=\"" + name + "\" and task.des=\"" + des + "\" and task.date=\"" + date + "\")")
 	var uid string
 	for answer.Next() {
 		//Error логин существует

@@ -3,6 +3,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 )
@@ -16,7 +17,7 @@ func reg(w http.ResponseWriter, r *http.Request) {
 }
 
 func get_reg(login string, pass string) []byte {
-	rows, err := GetAnswer("SELECT idusers FROM users WHERE login = \"" + login + "\"")
+	rows, err := SelectDB("SELECT idusers FROM users WHERE login = '" + login + "'")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)
@@ -31,17 +32,19 @@ func get_reg(login string, pass string) []byte {
 		checkErr(err)
 		return js
 	}
+	fmt.Println("INSERT INTO users (login, password) VALUES ('" + login + "', '" + pass + "');")
+	//INSERT INTO users (login, password) VALUES ('" + login + "', '" + password + "');
+	err = UpdateDB("INSERT INTO users (login, password) VALUES ('" + login + "', '" + pass + "');")
 
-	err = Update_DB("INSERT users SET login=\"" + login +
-		"\",password=\"" + pass + "\"")
-	if err != nil {
-		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
-		js, err := json.Marshal(authAndRegFailed)
-		checkErr(err)
-		return js
-	}
+	//	if err != nil {
+	//		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
+	//		js, err := json.Marshal(authAndRegFailed)
+	//		checkErr(err)
+	//		return js
+	//	}
 	//JSON ответ успешной регистрации
-	rows, err = GetAnswer("SELECT idusers FROM users WHERE login = \"" + login + "\"")
+	fmt.Println("SELECT idusers FROM users WHERE login = '" + login + "'")
+	rows, err = SelectDB("SELECT idusers FROM users WHERE login = '" + login + "'")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)

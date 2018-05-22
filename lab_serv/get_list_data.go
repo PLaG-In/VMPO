@@ -24,7 +24,7 @@ func get_list_data(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func list_data(date string, user string) []byte {
 	//Поиск в бд НЕ ГОТОВО
-	rows, err := GetAnswer("SELECT * FROM mydb.task WHERE (task.id_user = \"" +
+	rows, err := SelectDB("SELECT * FROM mydb.task WHERE (task.id_user = \"" +
 		user + "\") AND (task.date =\"" + date + "\")")
 	var i = 0
 	for rows.Next() {
@@ -39,7 +39,7 @@ func list_data(date string, user string) []byte {
 		return js
 	}
 
-	rows, err = GetAnswer("SELECT idtask, name, time, priority FROM mydb.task WHERE (task.id_user = \"" +
+	rows, err = SelectDB("SELECT idtask, name, time, priority FROM mydb.task WHERE (task.id_user = \"" +
 		user + "\") AND (task.date =\"" + date + "\")")
 
 	var tasks []Task = make([]Task, i)
