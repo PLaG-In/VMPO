@@ -12,9 +12,10 @@ type FailAnswer struct {
 }
 
 type Task struct {
-	Id_task int
-	Name    string
-	Time    string
+	Id_task  int
+	Name     string
+	Time     string
+	Priority string
 }
 
 type TaskList struct {

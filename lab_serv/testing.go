@@ -109,7 +109,7 @@ func testing(w http.ResponseWriter, r *http.Request) {
 	}
 	//6 добавление записи
 	add_data := AppendData{}
-	answer = append_data("5", "test", "test des", "05.02.2018", "22")
+	answer = append_data("5", "test", "test des", "05.02.2018", "22", "0")
 	bytes = []byte(answer)
 	json.Unmarshal(bytes, &add_data)
 	total_test = Inc_Test(total_test)

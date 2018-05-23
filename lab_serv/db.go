@@ -37,8 +37,22 @@ func UpdateDB(input string) error {
 	fmt.Println("# Inserting values")
 
 	var lastInsertId int
+	//???
 	err = db.QueryRow(input).Scan(&lastInsertId)
 	checkErr(err)
+	fmt.Println("last inserted id =", lastInsertId)
+
+	fmt.Println("# Updating")
+	//stmt, err := db.Prepare(input)
+	//checkErr(err)
+
+	//	res, err := stmt.Exec("astaxieupdate", lastInsertId)
+	//	checkErr(err)
+
+	//	affect, err := res.RowsAffected()
+	//	checkErr(err)
+
+	//	fmt.Println(affect, "rows changed")
 
 	return err
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func sign_out(w http.ResponseWriter, r *http.Request) {
-	key := r.FormValue("secret")
+	key := r.FormValue("Secret")
 	id := r.FormValue("user_id")
 	answer := sign_out_test(key, id)
 	PrintToScreen(w, answer)

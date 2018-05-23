@@ -9,7 +9,7 @@ import (
 func get_list_data(w http.ResponseWriter, r *http.Request) {
 	key := r.FormValue("secret")
 	date := r.FormValue("date")
-	id_user := r.FormValue("user_id")
+	id_user := r.FormValue("id_user")
 	if check_session(key, id_user) {
 		answer := list_data(date, id_user)
 		PrintToScreen(w, answer)
@@ -24,10 +24,8 @@ func get_list_data(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func list_data(date string, user string) []byte {
 	//Поиск в бд НЕ ГОТОВО
-	fmt.Println("SELECT * FROM task WHERE (task.iduser = " +
-		user + ") AND (task.date = '" + date + "');")
-	rows, err := SelectDB("SELECT * FROM task WHERE (task.iduser = " +
-		user + ") AND (task.date = '" + date + "');")
+	rows, err := SelectDB("SELECT * FROM mydb.task WHERE (task.id_user = \"" +
+		user + "\") AND (task.date =\"" + date + "\")")
 	var i = 0
 	for rows.Next() {
 		i = i + 1
@@ -41,8 +39,8 @@ func list_data(date string, user string) []byte {
 		return js
 	}
 
-	rows, err = SelectDB("SELECT idtask, name, time FROM task WHERE (task.iduser = " +
-		user + ") AND (task.date = '" + date + "');")
+	rows, err = SelectDB("SELECT idtask, name, time, priority FROM mydb.task WHERE (task.id_user = \"" +
+		user + "\") AND (task.date =\"" + date + "\")")
 
 	var tasks []Task = make([]Task, i)
 	var counter = 0
@@ -50,10 +48,11 @@ func list_data(date string, user string) []byte {
 		var uid int
 		var name string
 		var time_task string
-		err := rows.Scan(&uid, &name, &time_task)
+		var priority string
+		err := rows.Scan(&uid, &name, &time_task, &priority)
 
 		checkErr(err)
-		tasks[counter] = Task{uid, name, time_task}
+		tasks[counter] = Task{uid, name, time_task, priority}
 		counter = counter + 1
 	}
 	fmt.Println(i)
