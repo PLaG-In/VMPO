@@ -16,12 +16,8 @@
 #calendar2 thead tr:nth-child(1) td:nth-child(1):hover, #calendar2 thead tr:nth-child(1) td:nth-child(3):hover {
     cursor: pointer;
 }
-#calendar2 tbody td {
-    color: rgb(44, 86, 122);
-}
-.onClickCell{
-    border: 2px outside blue;
-}
+
+
 
 #calendar2 tbody td:nth-child(n+6), #calendar2 .holiday {
     color: rgb(231, 140, 92);
@@ -199,11 +195,13 @@ button:hover {
 }
 
 .container {
+    width: 100%;
     padding: 16px;
 }
 
 span.psw {
     float: right;
+    color: #000000;
     padding-top: 16px;
 }
 
