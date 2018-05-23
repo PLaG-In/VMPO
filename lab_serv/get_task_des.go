@@ -3,11 +3,12 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
 func get_task_des(w http.ResponseWriter, r *http.Request) {
-	key := r.FormValue("Secret")
+	key := r.FormValue("secret")
 	task_id := r.FormValue("task_id")
 	user_id := r.FormValue("user_id")
 	if check_session(key, user_id) {
@@ -24,7 +25,8 @@ func get_task_des(w http.ResponseWriter, r *http.Request) {
 //Для юнит-тестов
 func task_des(id string, user string) []byte {
 	//Поиск в бд
-	rows, err := SelectDB("SELECT des FROM mydb.task WHERE (task.idtask = " + id + ")  AND (task.id_user = " + user + ") ")
+	fmt.Println("SELECT des FROM task WHERE (task.idtask = " + id + ")  AND (task.iduser = " + user + ");")
+	rows, err := SelectDB("SELECT des FROM task WHERE (task.idtask = " + id + ")  AND (task.iduser = " + user + ");")
 	if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)

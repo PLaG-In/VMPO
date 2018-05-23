@@ -3,21 +3,22 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
 func edit_task(w http.ResponseWriter, r *http.Request) {
-	key := r.FormValue("Secret")
+	key := r.FormValue("secret")
 	id := r.FormValue("user_id")
 	name := r.FormValue("name")
 	data := r.FormValue("date")
-	time := r.FormValue("time")
-	priority := r.FormValue("priority")
+	//time := r.FormValue("time")
+	//priority := r.FormValue("priority")
 	description := r.FormValue("description")
-	old_date := r.FormValue("old_date")
+	//old_date := r.FormValue("old_date")
 	task_id := r.FormValue("task_id")
 	if check_session(key, id) {
-		answer := task_update(id, name, description, data, time, priority, old_date, task_id)
+		answer := task_update(id, name, description, data, task_id)
 		PrintToScreen(w, answer)
 	} else {
 		authAndRegFailed := FailAnswer{403, "Неправильный ключ"}
@@ -28,17 +29,23 @@ func edit_task(w http.ResponseWriter, r *http.Request) {
 }
 
 //Для юнит-тестов
-func task_update(user string, name string, des string, date string, time string, priority string, old_date string, task_id string) []byte {
+func task_update(user string, name string, des string, date string, task_id string) []byte {
 	//Поиск в бд
-	err := UpdateDB("UPDATE mydb.task SET task.name = \"" + name + "\", task.des = " + des + ", task.time = \"" + time + "\", task.date = \"" + date + "\", task.priority = \"" + priority + "\" WHERE (task.id_user = " + user + ") AND (task.date = \"" + old_date + "\") AND (task.id_task = \"" + task_id + "\")")
-	task_delete(task_id, user, old_date)
+	fmt.Println("UPDATE task SET (name, des, date) = ('" + name + "', '" +
+		des + "', '" + date + "') WHERE (iduser = " + user + ") AND (idtask = " + task_id + ");")
+	err := UpdateDB("UPDATE task SET (name, des, date) = ('" + name + "', '" +
+		des + "', '" + date + "') WHERE (iduser = " + user + ") AND (idtask = " + task_id + ");")
+	//		date + "' WHERE (iduser = " +
+	//		user + ") AND (idtask = " +
+	//		task_id + ");")
+	//task_delete(task_id, user, old_date)
 
-	if err != nil {
-		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
-		js, err := json.Marshal(authAndRegFailed)
-		checkErr(err)
-		return js
-	}
+	//	if err != nil {
+	//		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
+	//		js, err := json.Marshal(authAndRegFailed)
+	//		checkErr(err)
+	//		return js
+	//	}
 	result := Success{200}
 	js, err := json.Marshal(result)
 	checkErr(err)
