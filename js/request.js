@@ -83,23 +83,17 @@ function deleteTaskReq(){
 	});
 }
 
-function editTask(){
+function editTask(name, des){
 	var url = SERVER_URL + '/edit_task';
 	var date = getDate();
-	var task = createTask();
-	var postData = { secret : secret, user_id : userID, name : task[1], date : date, time : task[2], description : task[3], task_id: task[0] };
+	var postData = { secret : secret, user_id : userID, name : name, date : date, time : getTaskTime(), description : des, task_id: getTaskId() };
 	$.ajax({
 		type: 'POST',
 		url: url,
 		data: postData,
 		dataType: 'json',
 		success: function(result){
-			var tr = '<tr>';
-			task.forEach(function(item) {
-				tr += '<td>' + item + '</td>';
-			});
-			tr += '</tr>';
-			$('#taskTable > tbody:last-child').append(tr);
+			alert('edit');
 		}
 	});
 }
@@ -142,7 +136,21 @@ function exitRequest(){
 	});
 }
 
-
+function updateTime() {
+	var url = SERVER_URL + '/edit_task';
+	var date = getDate();
+	var task = updateTask();
+	var postData = { secret : secret, user_id : userID, name : task[1], date : date, time : task[2], description : task[3], task_id: task[0] };
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: postData,
+		dataType: 'json',
+		success: function(result){
+			alert("успех");
+		}
+	});
+}
 
 function signupRequest(){
 		var url = SERVER_URL + '/reg';

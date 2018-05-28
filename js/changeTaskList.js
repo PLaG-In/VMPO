@@ -48,6 +48,7 @@ function putTime()
 		if (taskList[currentTaskId] !== undefined)
 		{
 			taskList[currentTaskId][2] = getTime();
+			updateTime();
 		}else{
 			alert("Вы удалили задачу, которую выполняли(не надо так)")
 		}
@@ -80,7 +81,8 @@ function changeTask()
 	//taskList[id][1] = document.getElementById('eNameOfTask').value;
 	selectedTask.context.cells[1].textContent = document.getElementById('eNameOfTask').value;
 	//taskList[id][3] = document.getElementById('ePriority').value;
-	selectedTask.context.cells[3].textContent = document.getElementById('ePriority').value;
+	selectedTask.context.cells[3].textContent = document.getElementById('eDescriptionOfTask').value;
+	editTask(selectedTask.context.cells[1].textContent, selectedTask.context.cells[3].textContent);
 }
 
 function getTask()
@@ -89,12 +91,20 @@ function getTask()
 	{
 		document.getElementById('eNameOfTask').value = selectedTask.context.cells[1].textContent;
 		//description get
-		document.getElementById('ePriority').value = selectedTask.context.cells[3].textContent;
+		document.getElementById('eDescriptionOfTask').value = selectedTask.context.cells[3].textContent;
 	}
 }
 
 function getTaskLists(newTaskList){
 	taskList = newTaskList;
+}
+
+function updateTask() {
+	var task_id = getTaskId();
+	var task = document.getElementById('eNameOfTask').value = selectedTask.context.cells[1].textContent;
+	var time = getTime();
+	var des = document.getElementById('eDescriptionOfTask').value = selectedTask.context.cells[3].textContent;
+	return [task_id, task, time, des];
 }
 
 function createTask() {
@@ -113,9 +123,8 @@ $(document).ready(function()
 				{
 					selectedTask.removeClass('selectlines');
 				}
-
 				selectedTask = $(this);
-	    	$(this).toggleClass('selectlines');
+				$(this).toggleClass('selectlines');
 				getTime();
 	    });
 	});

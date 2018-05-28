@@ -46,12 +46,10 @@
     // ������������� ����� �����
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);
-	  getList();
     }
     // ������������� ���� �����
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
-	  getList();
     }
 
 	function getDate(){
@@ -72,6 +70,7 @@
 		getTaskList();
 		var taskList = waitWhileEmpty();
 		var newTaskList = [];
+		getTaskLists(newTaskList);
 		var task = [];
 			if (taskList === undefined) {
 				taskList = [];
@@ -91,7 +90,7 @@
 			  $('#taskTable > tbody:last-child').append(tr);
 			}
 	 
-      getTaskLists(newTaskList);
+		//getTaskLists(newTaskList);
 	
 	}
 	
@@ -109,11 +108,11 @@
 			currentDate = $(this)[0].innerText;
 			currentMonth = Number($('table thead tr td')[1].dataset.month) + 1;
 			currentYear = $('table thead tr td')[1].dataset.year;
-			//$('.oa-content-table').empty();
-            //$('.oa-content-table tr').append(html);
 			$("#taskTable tbody tr").detach();
 			getList();
 			
+			
+			//alert($('.click').index());
 			$(this).toggleClass('click');
 	    });
 	});
