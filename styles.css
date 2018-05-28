@@ -64,6 +64,7 @@
 .flexitem2{
     width: 50%;
     height: 80vh;
+	margin-right: 10px;
     background: #508694;
     padding: 0 1% 0 1%;
     display: flex;
@@ -86,6 +87,7 @@
 }
 
 .flex-button{
+	cursor: pointer;
     width: 33.3%;
     height: 100%;
     padding: 0;
@@ -119,12 +121,24 @@ textarea{
 
 /* Стиль для кнопок */
 button {
-    background-color: #4CAF50;
+    background-color: #138FC211;
+	border-style: solid;
+    border-color: #065A7E;
     color: white;
     padding: 14px 20px;
     border: none;
     cursor: pointer;
     width: 100%;
+}
+
+button:hover {
+    	color: #fff;
+    	background: #065A7Eff;
+		border-style: solid;
+		border-color: #065A7E;
+    	tansition: all .3s linear;
+    	-webkit-transition: all .3s linear;
+    	-moz-transition: all .3s linear; 
 }
 
 .timer{
@@ -137,14 +151,22 @@ button {
 }
 
 .time{
-    width: 20%;
+    width: 80%;
     height: 100%;
-    background: #4CAF50;   
-    align-items: center; /* Выравнивание текста по вертикали */
-    justify-content: center;  
-    display: flex; 
-
+    background: #71BFE155;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: solid;
+    border-color: #065A7E;
+    display: flex;
 }
+
+#time{
+	color: white;
+	font-size: 18px;
+}
+
 p{
     margin: 0;
     padding: 0;
@@ -152,13 +174,30 @@ p{
 
 .timer-button{
     height: 100%;
-    width: 50%;
+    width: 90%;
+	border-style: solid;
+    border-color: #048839;
+	border-radius: 8px;
+	background: #0CD15B;
+}
+
+.timer-button:hover{
+	background: #048839;
+	border-color: #048839;
 }
 
 .stop-button{
-    background-color: #f44336;
-	height: 100%;
-    width: 50%;
+    height: 100%;
+    width: 90%;
+	border-style: solid;
+    border-color: #A62305;
+	border-radius: 8px;
+	background: #FF6D4A;
+}
+
+.stop-button:hover{
+	background: #A62305;
+	border-color: #A62305;
 }
 
 .timerButtonBlock{

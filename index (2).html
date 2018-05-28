@@ -86,10 +86,6 @@
 
 										<label><b>Повторите пароль</b></label>
 										<input type="password" placeholder="Повторите пароль" id="repassword" required>
-
-										<label>
-											<input type="checkbox" checked="checked"> Запомнить меня
-										</label>
 									</div>
 
 									<div class="container" style="background-color:#f1f1f1">
@@ -113,11 +109,9 @@
 										<input type="password" placeholder="Введите пароль" id="apassword" required>
 
 										<button onclick="loginRequest()">Войти</button>
-										<label>
-											<input type="checkbox" checked="checked"> Запомнить меня
-										</label>
 									</div>
 									<div class="container" style="background-color:#f1f1f1">
+									
 										<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Отмена</button>
 									</div>
 								</form>
@@ -172,12 +166,14 @@
 
 				<div class="flexitem2">
 				  	<div class="timer">
-				  		<div class="time">
+				  		<div class="timerButtonBlock">
+				  			<button style="font-size: 18px; padding: 10px;" class="timer-button" id="timer-button" play="1">Старт</button>
+						</div>
+						<div class="time">
 				  			<span id="time">00:00:00</span>
 				  		</div>
-				  		<div class="timerButtonBlock">
-				  			<button class="timer-button" id="timer-button" play="1">Старт</button>
-				      		<button class="stop-button" id="stop-button">Стоп</button>
+						<div class="timerButtonBlock">
+				      		<button style="font-size: 18px; padding: 10px;" class="stop-button" id="stop-button">Стоп</button>
 				  		</div>
 				  	</div>
 				    <div class="taskArea">
@@ -242,7 +238,8 @@
 						 	</form>
 						</div>
 
-				    	<button class="flex-button" onclick="deleteTask()">Удалить запись</button>
+				    	
+						<button class="flex-button" onclick="deleteTask()">Удалить запись</button>
 
 				    </div>
 			    </div>
