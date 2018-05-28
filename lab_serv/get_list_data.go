@@ -35,13 +35,13 @@ func list_data(date string, user string) []byte {
 	rows.Close()
 
 	if i == 0 {
-		authAndRegFailed := FailAnswer{402, "Нет данных по дате"}
+		authAndRegFailed := FailAnswer{201, "Нет данных по дате"}
 		js, err := json.Marshal(authAndRegFailed)
 		checkErr(err)
 		return js
 	}
 
-	rows, err = SelectDB("SELECT idtask, name, time FROM task WHERE (task.iduser = " +
+	rows, err = SelectDB("SELECT idtask, name, time, des FROM task WHERE (task.iduser = " +
 		user + ") AND (task.date = '" + date + "');")
 
 	var tasks []Task = make([]Task, i)
@@ -50,10 +50,11 @@ func list_data(date string, user string) []byte {
 		var uid int
 		var name string
 		var time_task string
-		err := rows.Scan(&uid, &name, &time_task)
+		var des string
+		err := rows.Scan(&uid, &name, &time_task, &des)
 
 		checkErr(err)
-		tasks[counter] = Task{uid, name, time_task}
+		tasks[counter] = Task{uid, name, time_task, des}
 		counter = counter + 1
 	}
 	fmt.Println(i)

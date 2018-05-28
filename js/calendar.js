@@ -46,10 +46,12 @@
     // ������������� ����� �����
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);
+	  getList();
     }
     // ������������� ���� �����
     document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
       Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
+	  getList();
     }
 
 	function getDate(){
@@ -59,13 +61,13 @@
 		if (Number(currentMonth) < 10 && currentMonth[0] != 0){
 			currentMonth = "0" + currentMonth
 		}
-		var date = currentDate + "." + currentMonth + "." + currentYear;
+		var date = currentMonth + "." + currentDate + "." + currentYear;
 		return date;
 	}
 
 	function getList(){	
 	
-		setTimeout(2000);
+		//setTimeout(2000);
 		deselectTask();
 		getTaskList();
 		var taskList = waitWhileEmpty();
@@ -79,20 +81,12 @@
 			  var tr = '<tr>';
 			  var z = 0;
 			  for (item in taskList[i])
-			  {
-				  if (item == "Priority") {
-					  if (taskList[i]["Priority"] == "0"){
-					  taskList[i]["Priority"] = "Низкий";
-						} else {
-					  taskList[i]["Priority"] = "Высокий";
-					}
-				  }
-				  
-          task[z] = taskList[i][item];
-          z++;
+			  { 
+				task[z] = taskList[i][item];
+				z++;
 				tr += '<td>' + taskList[i][item] + '</td>';
 			  }
-		newTaskList[i] = task;
+			  newTaskList[i] = task;
 			  tr += '</tr>';
 			  $('#taskTable > tbody:last-child').append(tr);
 			}
@@ -103,22 +97,23 @@
 	
 	$(document).ready(function()
 	{
-		
 	    $('table').on('click', '.cell', function ()
 	    {
-        var index = -1;
-        if ($('.click').index() != -1){
-          index = $('.click')[0].innerText;
-        }
-        $('.cell').filter(function(){
-          return $(this)[0].innerText == index;
-        }).removeClass('click');
-		currentDate = $(this)[0].innerText;
-		currentMonth = Number($('table thead tr td')[1].dataset.month) + 1;
-		currentYear = $('table thead tr td')[1].dataset.year;
-		$("#taskTable tbody tr").detach();
-		getList();
+			var index = -1;
+			if ($('.click').index() != -1){
+				index = $('.click')[0].innerText;
+			}	
+			$('.cell').filter(function(){
+				return $(this)[0].innerText == index;
+			}).removeClass('click');
+			currentDate = $(this)[0].innerText;
+			currentMonth = Number($('table thead tr td')[1].dataset.month) + 1;
+			currentYear = $('table thead tr td')[1].dataset.year;
+			//$('.oa-content-table').empty();
+            //$('.oa-content-table tr').append(html);
+			$("#taskTable tbody tr").detach();
+			getList();
 			
-	    $(this).toggleClass('click');
+			$(this).toggleClass('click');
 	    });
 	});

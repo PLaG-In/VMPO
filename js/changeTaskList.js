@@ -101,8 +101,8 @@ function createTask() {
 	var id = 0;
 	var task = $('#aNameOfTask').val();
 	var time = "00:00:00";
-	var priority = $('#aPriority').val();
-	return [id, task, time, priority];
+	var des = $('#aDescriptionOfTask').val();
+	return [id, task, time, des];
 }
 
 $(document).ready(function()

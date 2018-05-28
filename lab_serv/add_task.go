@@ -32,7 +32,7 @@ func append_data(user string, name string, des string, date string, time string)
 	fmt.Println("INSERT INTO task (iduser, name, des, date, time) VALUES (" + user + ", '" + name + "', '" +
 		des + "', '" + date + "', " + time + ");")
 	err := UpdateDB("INSERT INTO task (iduser, name, des, date, time) VALUES (" + user + ", '" + name + "', '" +
-		des + "', '" + date + "', " + time + ");")
+		des + "', '" + date + "', '" + time + "');")
 	/*if err != nil {
 		authAndRegFailed := FailAnswer{500, "Серверная ошибка"}
 		js, err := json.Marshal(authAndRegFailed)

@@ -1,4 +1,4 @@
-var SERVER_URL = "http://localhost:8080";
+var SERVER_URL = "http://localhost:8090";
 var secret = "";
 var userID = 0;
 var currentTask = [];
@@ -25,10 +25,15 @@ function loginRequest(){
 			success: function(result){
 				secret = result.SecretCode;
 				userID = result.User_id;
-				alert('Залогинился');
+				if(result.Code == 403){
+					pageSetup.showLoginControls();
+					alert(result.Description);
+					return false;
+				}
 			},
 			error: function(){
 				pageSetup.showLoginControls();
+				alert(secret);
 				console.log("[LOGIN] Unhandled server error");
 			}
 		});
@@ -43,19 +48,14 @@ function addTask(){
 	var url = SERVER_URL + '/add_task';
 	var date = getDate();
 	var task = createTask();
-	var priority = "0";
-	if (task[3] == "Низкий"){
-		priority = "0";
-	} else {
-		priority = "1";
-	}
-	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priority : priority, description : "0" };
+	var postData = { secret : secret, user_id : userID, name : task[1], date : date, time : task[2], description : task[3] };
 	$.ajax({
 		type: 'POST',
 		url: url,
 		data: postData,
 		dataType: 'json',
 		success: function(result){
+			alert(result.Code);
 			var tr = '<tr>';
 			task.forEach(function(item) {
 				tr += '<td>' + item + '</td>';
@@ -71,7 +71,7 @@ function deleteTaskReq(){
 	var url = SERVER_URL + '/remove_task';
 	var date = getDate();
 	var id_task = getTaskId();
-	var postData = { Secret : secret, id_task: id_task, id_user : userID, date : date };
+	var postData = { secret : secret, id_task: id_task, user_id : userID, date : date };
 		$.ajax({
 		type: 'POST',
 		url: url,
@@ -87,13 +87,7 @@ function editTask(){
 	var url = SERVER_URL + '/edit_task';
 	var date = getDate();
 	var task = createTask();
-	var priority = "0";
-	if (task[3] == "Низкий"){
-		priority = "0";
-	} else {
-		priority = "1";
-	}
-	var postData = { Secret : secret, user_id : userID, name : task[1], date : date, time : task[2], priority : priority, description : " ", task_id: task[0] };
+	var postData = { secret : secret, user_id : userID, name : task[1], date : date, time : task[2], description : task[3], task_id: task[0] };
 	$.ajax({
 		type: 'POST',
 		url: url,
@@ -114,13 +108,16 @@ function getTaskList(){
 	var url = SERVER_URL + '/get_list_data';
 	var task = [];
 	var date = getDate();
-	var postData = { secret : secret, date : date, id_user : userID };
+	var postData = { secret : secret, date : date, user_id : userID };
 	$.ajax({
 		type: 'GET',
 		url: url,
 		data: postData,
 		dataType: 'json',
 		success: function(result){
+			if(result.Code == 201){			
+				//TODO: вывод пустого списка
+			}
 			currentTask = result.Task;
 		}
 	});
