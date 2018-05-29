@@ -64,34 +64,42 @@
 	}
 
 	function getList(){	
-	
+		
 		//setTimeout(2000);
 		deselectTask();
 		getTaskList();
-		var taskList = waitWhileEmpty();
-		var newTaskList = [];
-		getTaskLists(newTaskList);
-		var task = [];
-			if (taskList === undefined) {
-				taskList = [];
-			}
-			 $("#taskTable tbody tr").detach();
-	    	for (i = 0; i < taskList.length; i++) {
-			  var tr = '<tr>';
-			  var z = 0;
-			  for (item in taskList[i])
-			  { 
-				task[z] = taskList[i][item];
-				z++;
-				tr += '<td>' + taskList[i][item] + '</td>';
-			  }
-			  newTaskList[i] = task;
-			  tr += '</tr>';
-			  $('#taskTable > tbody:last-child').append(tr);
-			}
+		setTimeout(function(){
+			var taskList = waitWhileEmpty();
+			callBack(taskList);
+		}, 200);
+		 
+		
 	 
 		//getTaskLists(newTaskList);
 	
+	}
+
+	function callBack(taskList){
+		var newTaskList = [];
+		getTaskLists(newTaskList);
+		var task = [];
+		// if (taskList === undefined) {
+		// 	taskList = [];
+		// };
+		$("#taskTable tbody tr").detach();
+    	for (i = 0; i < taskList.length; i++) {
+		  var tr = '<tr>';
+		  var z = 0;
+		  for (item in taskList[i])
+		  { 
+			task[z] = taskList[i][item];
+			z++;
+			tr += '<td>' + taskList[i][item] + '</td>';
+		  }
+		  newTaskList[i] = task;
+		  tr += '</tr>';
+		  $('#taskTable > tbody:last-child').append(tr);
+		}
 	}
 	
 	$(document).ready(function()
