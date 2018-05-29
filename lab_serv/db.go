@@ -37,8 +37,8 @@ func UpdateDB(input string) error {
 	fmt.Println("# Inserting values")
 
 	var lastInsertId int
-	err = db.QueryRow(input).Scan(&lastInsertId)
-	checkErr(err)
+	_ = db.QueryRow(input).Scan(&lastInsertId)
+	//checkErr(err)
 
 	return err
 }
@@ -51,19 +51,18 @@ func DeleteFromDB(input string) error {
 	defer db.Close()
 
 	var lastInsertId int
-	err = db.QueryRow("INSERT INTO userinfo(username,departname, Created) VALUES($1,$2,$3) returning uid;", "astaxie", "研发部门", "2012-12-09").Scan(&lastInsertId)
+	err = db.QueryRow(input).Scan(&lastInsertId)
+	checkErr(err)
 
 	fmt.Println("# Deleting")
-	stmt, err := db.Prepare(input)
+	_, err = db.Prepare(input)
 	checkErr(err)
 
-	res, err := stmt.Exec(lastInsertId)
-	checkErr(err)
+	//	res, err := stmt.Exec(lastInsertId)
+	//	checkErr(err)
 
-	affect, err := res.RowsAffected()
-	checkErr(err)
-
-	fmt.Println(affect, "rows changed")
+	//	affect, err := res.RowsAffected()
+	//	checkErr(err)
 
 	return err
 }

@@ -49,12 +49,12 @@ func list_data(date string, user string) []byte {
 	for rows.Next() {
 		var uid int
 		var name string
-		var time_task string
 		var des string
-		err := rows.Scan(&uid, &name, &time_task, &des)
+		var time_task string
+		err := rows.Scan(&uid, &name, &des, &time_task)
 
 		checkErr(err)
-		tasks[counter] = Task{uid, name, time_task, des}
+		tasks[counter] = Task{uid, name, des, time_task}
 		counter = counter + 1
 	}
 	fmt.Println(i)
